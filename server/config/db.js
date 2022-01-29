@@ -1,17 +1,12 @@
-const mongoose = require('mongoose')
-require('dotenv').config()
-const connectDB = async () => {
-    try {
-        const conn = await mongoose.connect(process.env.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        })
+require('dotenv').config();
+const mongoose = require('mongoose');
+const connectionOptions = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+};
+mongoose.connect(process.env.MONGO_URI || config.connectionString, connectionOptions);
+mongoose.Promise = global.Promise;
 
-        console.log(`mongoDB Connected: ${conn.connection.host}`)
-    } catch (error) {
-        console.error(error)
-        process.exit(1)
-    }
-}
-
-module.exports = connectDB
+module.exports = {
+    User: require('../models/user'),
+};
