@@ -5,14 +5,20 @@ const UserSchema = new mongoose.Schema({
         type:String,
         require:true
     },
-    password:{
-        type:String,
-        require:false
-    },
+    hash: { type: String, required: true },
     email:{
         type:String,
         require:true
     }
 })
+
+UserSchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: function (doc, ret) {
+        delete ret._id;
+        delete ret.hash;
+    }
+});
 
 module.exports = mongoose.model('User', UserSchema)
