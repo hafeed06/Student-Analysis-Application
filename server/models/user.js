@@ -5,6 +5,11 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    stdCode:{
+        type:String,
+        unique: true,
+        required: true
+    },
     hash: { type: String, required: true },
     email:{
         type:String,

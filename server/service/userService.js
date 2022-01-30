@@ -32,6 +32,12 @@ async function getById(id) {
     return await User.findById(id);
 }
 
+function between(min, max) {  
+    return Math.floor(
+      Math.random() * (max - min) + min
+    )
+}
+
 async function create(userParam) {
     // validate
     if (await User.findOne({ username: userParam.username })) {
@@ -44,9 +50,13 @@ async function create(userParam) {
         user.hash = bcrypt.hashSync(userParam.password, 10);
     }
 
+    //user Student code 
+
+    user.stdCode = "ME"+user.username+String(between(10, 1000));
     // save user
     await user.save();
 }
+
 
 async function update(id, userParam) {
     const user = await User.findById(id);
@@ -71,3 +81,4 @@ async function update(id, userParam) {
 async function _delete(id) {
     await User.findByIdAndRemove(id);
 }
+
