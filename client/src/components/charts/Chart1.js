@@ -1,6 +1,7 @@
 import React from 'react'
 import Chart from 'chart.js/auto';
 import { useEffect } from 'react';
+import '../../index.css'
 
 const Chart1 = () => {
 
@@ -57,7 +58,7 @@ const Chart1 = () => {
         }
       }, [])
     return (
-        <div>
+        <div className='container'>
           <canvas id="myChart"></canvas>
         </div>
     )
