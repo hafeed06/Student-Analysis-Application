@@ -14,8 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from "react-router-dom"
 import '../index.css'
 
-const pages = ['Login', 'Signup', 'Other'];
-const links = ['/login', '/signup', '/']
+const pages = ['Login', 'Signup', 'Chart Sample'];
+const links = ['/login', '/signup', '/chart']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
@@ -101,7 +101,7 @@ const Navbar = () => {
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                <Link to={pages[k]} >
+                                <Link to={links[k]} >
                                     {page}
                                 </Link>
                             </Button>

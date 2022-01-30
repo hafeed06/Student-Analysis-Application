@@ -23,7 +23,6 @@ const Signup = () => {
           lastname:'',
           username:'',
           password:'',
-          gender:'',
           email:'',
           country:'',
           area:'',
@@ -68,20 +67,6 @@ const Signup = () => {
             <TextField name="lastname" label="Last Name" variant="outlined" sx={smallInput} onChange={handleChange}/>
             <TextField name="username" label="Username" variant="outlined" sx={bigInput} onChange={handleChange}/>
             <TextField name="password" label="Password" type="password" variant="outlined" sx={bigInput} onChange={handleChange}/>
-            <FormControl style={{width:'95%', marginBottom:'3px', marginTop:'8px'}}>
-                <InputLabel id="demo-simple-select-label">Gender</InputLabel>
-                <Select 
-                name="gender"
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={data.gender}
-                label="Gender"
-                onChange={handleChange}
-                >
-                <MenuItem value="male">Male</MenuItem>
-                <MenuItem value="female">Female</MenuItem>
-                </Select>
-            </FormControl>
             <TextField name="email" label="Email" variant="outlined" sx={bigInput} onChange={handleChange}/>
             <TextField name="country" label="Country" variant="outlined" sx={smallInput} onChange={handleChange}/>
             <TextField name="area" label="Area" variant="outlined" sx={smallInput} onChange={handleChange}/>

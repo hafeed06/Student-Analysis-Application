@@ -37,13 +37,13 @@ const Login = () => {
         <Box sx={{ flexGrow: 1 }} mt={10} >
         <Grid container spacing={2}>
         <Grid item xs={12} sm={8} md={4} ml="auto" mr="auto">
-        <Typography variant="h4" sx={{textAlign:'center'}} pb={2}color="primary">Log in to MovieDB </Typography>
+        <Typography variant="h4" sx={{textAlign:'center'}} pb={2}color="primary">Log in to APA </Typography>
         <Paper sx={{paddingTop:2, paddingLeft:2, paddingRight:2, justifyContent:'center', textAlign:'center'}}>
             <form onSubmit={handleSubmit}>
             <TextField name="username" label="Username" variant="outlined" sx={bigInput} onChange={handleChange}/>
             <TextField name="password" label="Password" type="password" variant="outlined" sx={bigInput} onChange={handleChange}/>
             <Button type="submit" variant="contained" color="primary" sx={{width:'50%'}}> Login</Button>
-            <Typography p={1} variant="subtitle2">First time using MovieDB? Sign up! </Typography>
+            <Typography p={1} variant="subtitle2">First time using APA? Sign up! </Typography>
             {submitted && <Typography variant="h4" color="green">Successfully Authenticated</Typography>}
             </form>
           </Paper>
