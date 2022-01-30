@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const CourseSchema = new mongoose.Schema({
     nameCourse:{
         type:String,
-        require:true
+        required:true
     },
     typeCourse : {
         type: [Schema.Types.ObjectId],

@@ -3,11 +3,11 @@ const mongoose = require('mongoose')
 const MarkSchema = new mongoose.Schema({
     result:{
         type:String,
-        require:true
+        required:true
     },
     dateResult:{
         type:Date,
-        require:false
+        required:false
     },
     user : {
         type: [Schema.Types.ObjectId],

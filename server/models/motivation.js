@@ -3,11 +3,11 @@ const mongoose = require('mongoose')
 const MotivationSchema = new mongoose.Schema({
     quotte:{
         type:String,
-        require:true
+        required:true
     },
     note:{
         type:Int16Array,
-        require:true
+        required:true
     }
 })
 
