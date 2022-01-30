@@ -2,6 +2,7 @@ require('dotenv').config()
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const db = require('../config/db');
+const contactService = require('../service/contactService');
 const User = db.User;
 
 module.exports = {

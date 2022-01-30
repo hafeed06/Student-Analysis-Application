@@ -23,6 +23,8 @@ app.use(jwt());
 
 // api routes
 app.use('/users', require('./routes/userRoutes'));
+app.use('/users/contact', require('./routes/contactRoutes'));
+
 
 // global error handler
 app.use(errorHandler);
