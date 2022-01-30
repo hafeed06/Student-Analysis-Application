@@ -3,23 +3,23 @@ const mongoose = require('mongoose')
 const ContactSchema = new mongoose.Schema({
     country:{
         type:String,
-        require:true
+        required:true
     },
     area:{
         type:String,
-        require:false
+        required:false
     },
     city:{
         type:String,
-        require:true
+        required:true
     },
     street:{
         type:String,
-        require:false
+        required:false
     },
     number:{
         type:String,
-        require:false
+        required:false
     },
     user : {
         type: [Schema.Types.ObjectId],

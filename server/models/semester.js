@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const SemeseterSchema = new mongoose.Schema({
     nameSmester:{
         type:String,
-        require:true
+        required:true
     }
 })
 

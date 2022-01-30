@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const EvaluationSchema = new mongoose.Schema({
     dateEvaluation:{
         type:Date,
-        require:true
+        required:true
     },
     course : {
         type: [Schema.Types.ObjectId],
