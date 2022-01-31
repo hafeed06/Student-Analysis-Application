@@ -1,5 +1,33 @@
 const mongoose = require('mongoose')
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Contact:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: objectId
+ *           description: The contact ID.
+ *           example: sqdsqd
+ *         area:
+ *           type: string
+ *           description: The user's email.
+ *           example: villejuif
+ *         country:
+ *           type: string
+ *         city:
+ *           type: string
+ *         street: 
+ *           type: string
+ *         number:
+ *           type: string
+ *         user:
+ *           type: objectId
+ *           description: UserId
+ *           example: 6dhsjdkkdllf
+ */
 const ContactSchema = new mongoose.Schema({
     country:{
         type:String,

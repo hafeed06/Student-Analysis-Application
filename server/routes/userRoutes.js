@@ -4,7 +4,53 @@ const userService = require('../service/userService');
 const jwt = require('../config/jwt');
 const user = require('../models/user');
 // routes
+/**
+ * @swagger
+ * /users/authenticate:
+ *   post:
+ *     summary: authenticate user
+ *     description: Authenticate a user
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     consumes:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: {msg: "User json !"}
+ */
 router.post('/authenticate', authenticate);
+/**
+ * @swagger
+ * /users/register:
+ *   post:
+ *     summary: Register a new user
+ *     description: Register a new user
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     consumes:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: {msg: "User json !"}
+ */
 router.post('/register', register);
 router.get('/', getAll);
 router.get('/current', getCurrent);
