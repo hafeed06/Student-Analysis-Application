@@ -71,13 +71,13 @@ router.post('/create', create);
  *       401:
  *         description: Invalid token
  */
+
 router.get('/:id', getByUserId);
 router.put('/:id', update);
 router.delete('/:id', _delete);
 router.get('/', getAll);
 
 module.exports = router;
-
 
 function create(req, res, next) {
     contactService.create(req.body)
@@ -86,14 +86,13 @@ function create(req, res, next) {
 }
 
 function getAll(req, res, next) {
-    console.log(res)
     contactService.getAll()
         .then(contact => res.json(contact))
         .catch(err => next(err));
 }
 
 function getByUserId(req, res, next) {
-    console.log("yann<s")    
+    console.log(req.params.id)
     contactService.getByUserId(req.params.id)
         .then(contact => contact ? res.json(contact) : res.sendStatus(404))
         .catch(err => next(err));

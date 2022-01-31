@@ -9,6 +9,7 @@ import AddResults from './pages/AddResults'
 import AuthenticationTester from './tests/AuthenticationTester'
 import { useState, useEffect } from 'react'
 import CheckAuth from './utils/checkAuth';
+import UserInfoTester from './tests/UserInfoTester'
 
 
 
@@ -70,14 +71,20 @@ const MainRouter = () => {
             {loadNavbar && <Navbar pages = {pages} links = {links} settings = {settings} /> }
             <Routes>
 
-                <Route exact path="/" element={<Home />} />
+                <Route exact path="/" element={ isAuth ? <Home /> : <Navigate to="/login" /> } />
                 <Route exact path="/signup" element={<Signup />} />
                 {/* Authenticated Users will be redirected to Home if they try to go to Login route  */}
                 <Route exact path="/login" element={ !isAuth ? <Login /> : <Navigate to="/" /> } />
                 {/* Chart is a private authenticated only route, if user is not authenticated they will be redirect to Login */}
                 <Route exact path="/chart" element={isAuth? <Chart1 /> : <Navigate to="/login" />}/>
                 <Route exact path="/addresults" element={< AddResults />} />
+                
+
+
+                { /* Test Routes */ }
                 <Route exact path="/testauth" element={<AuthenticationTester />} />
+                <Route exact path="/testinfo" element={<UserInfoTester />} />
+
 
             </Routes>
         </Router>
