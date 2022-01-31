@@ -10,4 +10,6 @@ mongoose.Promise = global.Promise;
 module.exports = {
     User: require('../models/user'),
     Contact: require('../models/contact'),
+    Course: require('../models/course'),
+    Semester: require('../models/semester'),
 };
