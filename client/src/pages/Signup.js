@@ -10,6 +10,7 @@ import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import { Link } from "react-router-dom"
 import '../index.css'
+import api from '../utils/api';
 
 const bigInput = {width:'95%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
 const smallInput = {width:'46%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
@@ -45,8 +46,40 @@ const Signup = () => {
         };
         const handleSubmit = async (e) => {
           e.preventDefault()
-          // Call to javaAPI
-        //   addUser(data)
+          const userData = 
+            {
+              "username": data.username,
+              "email": data.email,
+              "password": data.password
+            }
+          const contactData = 
+            {
+              "area": data.area,
+              "country": data.country,
+              "city": data.city,
+              "street": data.street,
+              "number": data.number,
+              "user": ""
+            }
+            
+            try {
+              const addUser = await api.post('/users/register', userData)
+              contactData.user = addUser.data.id 
+              // Creating the contanct 
+                try {
+                    const addContact = await api.post('/contacts/create', contactData)
+                    console.log(addContact.data)
+                } catch (error) {
+                  
+                }
+            } catch (error) {
+              console.log(error.response.DATA)
+            }
+
+            
+
+
+
         }
     
         // Logging  - Dev Only 
