@@ -9,6 +9,8 @@ const errorHandler = require('./config/error-handler');
 const swaggerJsdoc      = require("swagger-jsdoc");
 const swaggerUi         = require('swagger-ui-express');
 
+const port = process.env.PORT
+
 const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
@@ -27,7 +29,7 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: 'http://localhost:3000',
+      url: `http://localhost:${port}`,
       description: 'Development server',
     },
   ],
@@ -41,7 +43,6 @@ const swaggerSpec = swaggerJsdoc(options, {explore: true});
 
 const connectDb = require('./config/db')
 require('dotenv').config();
-const port = process.env.PORT
 
 // connection data base 
 //connectDb()
@@ -65,8 +66,6 @@ app.use('/users', require('./routes/userRoutes'));
 app.use('/contacts', require('./routes/contactRoutes'));
 app.use('/api-docs/',cors(corsOptions), swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-
-// global error handler
 app.use(errorHandler);
 
 app.listen(port, () => {
