@@ -14,8 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from "react-router-dom"
 import '../index.css'
 
-const pages = ['Login', 'Signup', 'Chart Sample'];
-const links = ['/login', '/signup', '/chart']
+const pages = ['Login', 'Signup', 'Chart Sample', 'Add Results','Logged Test'];
+const links = ['/login', '/signup', '/chart', '/addresults', '/loggedtest']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {

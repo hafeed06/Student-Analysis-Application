@@ -34,4 +34,23 @@ a {
   margin-bottom:20px; 
 }
 
+.inputContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+
+.lineBreaker {
+  width:100%; 
+  height:5px;
+  background:#78BCF8;  
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.specialButton {
+  background-color: #0FA097;
+}
+
 /*  */

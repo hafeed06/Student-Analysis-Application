@@ -4,15 +4,42 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Button, Typography, Paper } from '@mui/material';
+import axios from 'axios'
+import Cookies from 'universal-cookie'
+
+const cookies = new Cookies(); 
 
 const bigInput = {width:'95%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
 // const smallInput = {width:'46%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
 
+const api = axios.create({
+  baseURL: process.env.REACT_APP_API
+})
+
 const Login = () => {
+  const headers = {
+    'Authorization': `Bearer ${cookies.get('token')}`
+  }
+  useEffect(() => {
+  
+  },[])
+
+  const testAPI = async () => {
+    console.log("Token is => " + cookies.get('token'))
+    try {
+      const res = await api.get('/users', {headers: headers}
+      )
+      console.log(res.data)
+    } catch (error) {
+      console.log(error.response.data)
+    }
+  }
 
     const initialState = {
         username:'',
+        email:'',
         password:'',
+
     }
     // Submition State 
     const [submitted, setSubmitted] = useState(false) 
@@ -22,10 +49,19 @@ const Login = () => {
         setData({...data, [e.target.name]:e.target.value})
         console.log(data)
     }
-
+      /////////////////////////////////////// SUBMISSION /////////////////////////////
     const handleSubmit = async (e) => {
         e.preventDefault()
-        // await authUser(data, setSubmitted); 
+        try {
+          let res = await api.post('/users/authenticate', data)
+          cookies.remove('token')
+          cookies.set("token", res.data.token, {'path': '/'})
+          console.log(res.data.token)
+        }
+        
+        catch (error) {
+          console.log(error.response.data)
+        }
       }
       useEffect(() => {
         console.log(data)
@@ -41,10 +77,14 @@ const Login = () => {
         <Paper sx={{paddingTop:2, paddingLeft:2, paddingRight:2, justifyContent:'center', textAlign:'center'}}>
             <form onSubmit={handleSubmit}>
             <TextField name="username" label="Username" variant="outlined" sx={bigInput} onChange={handleChange}/>
+            <TextField name="email" label="Email" variant="outlined" sx={bigInput} onChange={handleChange}/>
             <TextField name="password" label="Password" type="password" variant="outlined" sx={bigInput} onChange={handleChange}/>
             <Button type="submit" variant="contained" color="primary" sx={{width:'50%'}}> Login</Button>
+            <br />
+            <Button variant="contained" color="secondary" sx={{width:'50%'}} onClick={testAPI}> API TEST</Button>
             <Typography p={1} variant="subtitle2">First time using APA? Sign up! </Typography>
             {submitted && <Typography variant="h4" color="green">Successfully Authenticated</Typography>}
+
             </form>
           </Paper>
         </Grid>
