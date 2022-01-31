@@ -16,20 +16,20 @@ const port = process.env.PORT
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors());
 
+
+
+app.use(cors());
 // use JWT auth to secure the api
 app.use(jwt());
 
 // api routes
 app.use('/users', require('./routes/userRoutes'));
+app.use('/contacts', require('./routes/contactRoutes'));
+
 
 // global error handler
 app.use(errorHandler);
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

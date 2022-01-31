@@ -22,9 +22,17 @@ const ContactSchema = new mongoose.Schema({
         required:false
     },
     user : {
-        type: [Schema.Types.ObjectId],
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }
 })
+
+ContactSchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: function (doc, ret) {
+        delete ret._id;
+    }
+});
 
 module.exports = mongoose.model('Contact', ContactSchema)
