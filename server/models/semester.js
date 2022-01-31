@@ -1,10 +1,35 @@
 const mongoose = require('mongoose')
 
-const SemeseterSchema = new mongoose.Schema({
-    nameSmester:{
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Semester:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: objectId
+ *           description: The semester ID.
+ *           example: sqdsqd
+ *         nameSemester:
+ *           type: string
+ *           description: The name of the semester.
+ *           example: Fundamental semester
+ */
+const SemesterSchema = new mongoose.Schema({
+    nameSemester:{
         type:String,
         required:true
     }
-})
+});
 
-module.exports = mongoose.model('Semester', SemeseterSchema)
+SemesterSchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: function (doc, ret) {
+        delete ret._id;
+    }
+});
+
+module.exports = mongoose.model('Semester', SemesterSchema)

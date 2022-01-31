@@ -37,6 +37,10 @@ async function create(contactParm) {
 
 
 async function update(id, contactParm) {
+    const contacts = await Contact.findById(id);
+
+    // validate
+    if (!contacts) throw 'Course not found';
     const contact = await Contact.findOne({user:contactParm.user});
     // copy contactParm properties to contact
     Object.assign(contact, contactParm);
