@@ -11,6 +11,7 @@ function jwt() {
             // public routes that don't require authentication
             '/users/authenticate',
             '/users/register',
+            '/contacts/create',
             '/api-docs/',
             '/api-docs/swagger-ui.css',
             '/api-docs/swagger-ui-init.js',
