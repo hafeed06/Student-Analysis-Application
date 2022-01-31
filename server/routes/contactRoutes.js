@@ -69,12 +69,12 @@ router.get('/', getAll);
  *       401:
  *         description: Invalid token
  */
+
 router.get('/:id', getByUserId);
 router.put('/:id', update);
 router.delete('/:id', _delete);
 
 module.exports = router;
-
 
 function create(req, res, next) {
     contactService.create(req.body)
@@ -89,7 +89,8 @@ function getAll(req, res, next) {
 }
 
 function getByUserId(req, res, next) {
-    contactService.getByUserId(req.params.user)
+    console.log(req.params.id)
+    contactService.getByUserId(req.params.id)
         .then(contact => contact ? res.json(contact) : res.sendStatus(404))
         .catch(err => next(err));
 }

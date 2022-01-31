@@ -9,14 +9,19 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import { Link } from "react-router-dom"
-import '../index.css'
 import api from '../utils/api';
+import '../index.css'
+import goHome from '../utils/goHome';
 
 const bigInput = {width:'95%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
 const smallInput = {width:'46%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
 
 const Signup = () => {
 
+
+        // Submit and Error Management 
+        const [submitted, setSubmitted] = useState(null)
+        const [error, setError] = useState(null)
         // State Management
         const initialDate = new Date()
         const initialState = {
@@ -31,7 +36,6 @@ const Signup = () => {
           number:'',
           street:'',
           }
-        const [submitted, setSubmitted] = useState(false)
         const [data, setData] = useState(initialState)
         // Date State
         const [value, setValue] = useState(new Date(initialDate));
@@ -65,27 +69,34 @@ const Signup = () => {
             try {
               const addUser = await api.post('/users/register', userData)
               contactData.user = addUser.data.id 
+              console.log("User Added")
               // Creating the contanct 
                 try {
                     const addContact = await api.post('/contacts/create', contactData)
                     console.log(addContact.data)
+                    console.log("Contact Added")
+                    // Everything submitted 
+                    setSubmitted(true)
                 } catch (error) {
-                  
+                  console.log(error.response.data)
+                  setError(true)
                 }
             } catch (error) {
-              console.log(error.response.DATA)
+              console.log(error.response.data)
+              setError(true)
             }
-
-            
-
-
-
         }
     
         // Logging  - Dev Only 
         useEffect(() => {
           console.log(data)
-                        },[data])
+        },[data])
+        // Redirect after login useEffect 
+        useEffect(() => {
+          (submitted && !error) && setTimeout(goHome(), 6000)
+        },[submitted])
+
+
     return (
 
         <div className="container">
@@ -93,6 +104,8 @@ const Signup = () => {
                 <Grid item xs={5} ml="auto" mr="auto">
                 <Typography variant="h4" sx={{textAlign:'center'}} pb={2}color="primary">Create an Account </Typography>
         <Paper sx={{paddingTop:2, paddingLeft:2, paddingRight:2, justifyContent:'center', textAlign:'center'}}>
+        {submitted && error && <Typography variant="body2" color="error">Incorrect Credentials ... Please Try again</Typography> }
+        {(!submitted || error) && (
         <form onSubmit={handleSubmit}>
             <TextField name="firstname" label="First Name" variant="outlined" sx={smallInput} onChange={handleChange}/>
             <TextField name="lastname" label="Last Name" variant="outlined" sx={smallInput} onChange={handleChange}/>
@@ -105,12 +118,14 @@ const Signup = () => {
             <TextField name="number" label="Number" variant="outlined" sx={smallInput} onChange={handleChange}/>
             <TextField name="street" label="Street" variant="outlined" sx={bigInput} onChange={handleChange}/>
             <Button variant="contained" type="submit" color="primary" sx={{width:'50%'}}>Signup</Button>
-          </form>
-            <Typography p={1} variant="subtitle2">Already have an account?&nbsp;
-              {/* <Link to="/Signup" >
+            <Typography p={1} variant="subtitle2">Already have an account?&nbsp;  
+              <Link to="/login" >
                Sign in! 
-              </Link> */}
+              </Link>
             </Typography>
+          </form>
+  )}
+              {(submitted && !error) && (<Typography variant="h6" color="success">You Signed up successfully !  </Typography>)}
           </Paper>
                 </Grid>
             </Grid>

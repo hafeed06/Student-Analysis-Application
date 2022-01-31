@@ -90,10 +90,11 @@ const Login = () => {
             <Button type="submit" variant="contained" color="primary" sx={{width:'50%'}}> Login</Button>
             {/* <br />
             <Button variant="contained" color="secondary" sx={{width:'50%'}} onClick={testAPI}> API TEST</Button> */}
+
             <Typography p={1} variant="subtitle2">First time using APA? <Link to="/signup">Sign up!</Link> </Typography>
             </form>
             )}
-            {(submitted && !error) && <Typography variant="h3" color="success">You have been Authenticated ! </Typography>}
+            {(submitted && !error) && <Typography variant="h6" color="success">You have been Authenticated ! </Typography>}
           </Paper>
         </Grid>
       </Grid>

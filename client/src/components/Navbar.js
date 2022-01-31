@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from "react-router-dom"
 import '../index.css'
 import Logout from '../utils/Logout';
+import BubbleChartIcon from '@mui/icons-material/BubbleChart';
 
 // const pages = ['Login', 'Signup', 'Chart Sample', 'Add Results'];
 // const links = ['/login', '/signup', '/chart', '/addresults']
@@ -52,8 +53,8 @@ const Navbar = ({ pages, links, settings }) => {
                         noWrap
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-                    >
-                        <Link to='/'>APA</Link>
+                    >   
+                        <Link to='/'><BubbleChartIcon /> APA</Link>
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
