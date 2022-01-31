@@ -10,7 +10,16 @@ function jwt() {
         path: [
             // public routes that don't require authentication
             '/users/authenticate',
-            '/users/register'
+            '/users/register',
+            '/api-docs/',
+            '/api-docs/swagger-ui.css',
+            '/api-docs/swagger-ui-init.js',
+            '/api-docs/swagger-ui-bundle.js',
+            '/api-docs/swagger-ui-standalone-preset.js',
+            '/api-docs/favicon-32x32.png',
+            '/api-docs/favicon-16x16.png',
+            '/api-docs/favicon-32x32.png',
+            '/api-docs/favicon-16x16.png'
         ]
     });
 }

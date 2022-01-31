@@ -1,5 +1,25 @@
 const mongoose = require('mongoose')
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: objectId
+ *           description: The user ID.
+ *           example: sqdsqd
+ *         email:
+ *           type: string
+ *           description: The user's email.
+ *           example: ldandoy@gmail.com
+ *         password:
+ *           type: string
+ *         username:
+ *           type: string
+ */
 const UserSchema = new mongoose.Schema({
     username:{
         type:String,
