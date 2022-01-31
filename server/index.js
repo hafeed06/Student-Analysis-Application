@@ -65,6 +65,7 @@ app.use(jwt());
 app.use('/users', require('./routes/userRoutes'));
 app.use('/contacts', require('./routes/contactRoutes'));
 app.use('/course', require('./routes/courseRoutes'));
+app.use('/semester', require('./routes/semesterRoutes'));
 app.use('/api-docs/',cors(corsOptions), swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(errorHandler);

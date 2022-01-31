@@ -1,43 +1,39 @@
 const express = require('express');
-const contact = require('../models/contact');
+const course = require('../models/contact');
 const courseService = require('../service/courseService');
 const router = express.Router();
-const userService = require('../service/contactService');
 
 // routes
 /**
  * @swagger
- * /course/create:
+ * /semester/create:
  *   post:
- *     summary: Create a course 
- *     description: Use for admin use that is admin only
+ *     summary: Create a semester 
+ *     description: /semester/create
  *     requestBody:
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               nameCourse:
- *               typeCourse:
- *                 type: objectId
- *               semester:
- *                 type: objectId
+ *               nameSemester:
+ *                 type: string
  *     consumes:
  *       - application/json
  *     responses:
  *       200:
- *         description: {msg: "Course json !"}
+ *         description: {msg: "Semester json !"}
  */
 router.post('/create', create);
 /**
  * @swagger
- * /course/:
+ * /semester/:
  *   get:
- *     summary: Retreive a list of course
- *     description: List of courses 
+ *     summary: Retreive a list of semester
+ *     description: /semester/ 
  *     responses:
  *       200:
- *         description: A list of course.
+ *         description: A list of semester.
  *       503:
  *         description: When you're not logged
  *       500:
@@ -48,10 +44,10 @@ router.post('/create', create);
 router.get('/', getAll);
 /**
  * @swagger
- * /course/{id}:
+ * /semester/{id}:
  *   get:
- *     summary: Retreive a course by id
- *     description: Retrieve one course
+ *     summary: Retreive a semester by id
+ *     description: /semester/{id}
  *     responses:
  *       200:
  *         description: course json.

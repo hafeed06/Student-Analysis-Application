@@ -12,7 +12,6 @@ function jwt() {
             '/users/authenticate',
             '/users/register',
             '/contacts/create',
-            '/contact/:id',
             '/api-docs/',
             '/api-docs/swagger-ui.css',
             '/api-docs/swagger-ui-init.js',
