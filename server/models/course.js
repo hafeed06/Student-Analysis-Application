@@ -30,7 +30,7 @@ const CourseSchema = new mongoose.Schema({
         ref: 'TypeCourse'
     },
     semester : {
-        type: [Schema.Types.ObjectId],
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Semester'
     }
 })
