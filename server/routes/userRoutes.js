@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const userService = require('../service/userService');
-
+const jwt = require('../config/jwt');
+const user = require('../models/user');
 // routes
 router.post('/authenticate', authenticate);
 router.post('/register', register);
@@ -14,6 +15,7 @@ router.delete('/:id', _delete);
 module.exports = router;
 
 function authenticate(req, res, next) {
+    
     userService.authenticate(req.body)
         .then(user => user ? res.json(user) : res.status(400).json({ message: 'Username or password is incorrect' }))
         .catch(err => next(err));
@@ -21,7 +23,7 @@ function authenticate(req, res, next) {
 
 function register(req, res, next) {
     userService.create(req.body)
-        .then(() => res.json({}))
+        .then(user => user ? res.json(user) : res.status(400).json({ message: 'incorrect parameters or the user exist' }))
         .catch(err => next(err));
 }
 

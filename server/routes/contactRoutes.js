@@ -1,4 +1,5 @@
 const express = require('express');
+const contact = require('../models/contact');
 const contactService = require('../service/contactService');
 const router = express.Router();
 const userService = require('../service/contactService');
@@ -21,13 +22,13 @@ function create(req, res, next) {
 
 function getAll(req, res, next) {
     contactService.getAll()
-        .then(users => res.json(users))
+        .then(contact => res.json(contact))
         .catch(err => next(err));
 }
 
 function getByUserId(req, res, next) {
-    contactService.getByUserId(req.params.id)
-        .then(user => user ? res.json(user) : res.sendStatus(404))
+    contactService.getByUserId(req.params.user)
+        .then(contact => contact ? res.json(contact) : res.sendStatus(404))
         .catch(err => next(err));
 }
 

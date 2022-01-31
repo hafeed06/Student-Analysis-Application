@@ -55,7 +55,12 @@ async function create(userParam) {
 
     user.stdCode = "ME"+user.username+String(between(10, 1000));
     // save user
-    await user.save();
+    if(await user.save()){
+        return {
+            ...user.toJSON()
+        };
+    }
+    
 }
 
 
