@@ -8,6 +8,7 @@ const jwt = require('./config/jwt');
 const errorHandler = require('./config/error-handler');
 const swaggerJsdoc      = require("swagger-jsdoc");
 const swaggerUi         = require('swagger-ui-express');
+const morgan            = require('morgan')
 
 const port = process.env.PORT
 
@@ -46,9 +47,9 @@ require('dotenv').config();
 
 // connection data base 
 //connectDb()
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(morgan('dev'))
 
 var corsOptions = {
   "origin": true,
@@ -66,6 +67,7 @@ app.use('/users', require('./routes/userRoutes'));
 app.use('/contacts', require('./routes/contactRoutes'));
 app.use('/course', require('./routes/courseRoutes'));
 app.use('/semester', require('./routes/semesterRoutes'));
+app.use('/typeCourse', require('./routes/typeCourseRoutes'));
 app.use('/api-docs/',cors(corsOptions), swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(errorHandler);

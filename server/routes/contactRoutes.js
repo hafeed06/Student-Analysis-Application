@@ -42,6 +42,9 @@ router.post('/create', create);
  *   get:
  *     summary: Retreive a list of contact
  *     description: Use it after registring a new user
+ *     parameters:
+ *       id: 
+ *         type: string
  *     responses:
  *       200:
  *         description: A list of contacts.
@@ -52,7 +55,6 @@ router.post('/create', create);
  *       401:
  *         description: Invalid token
  */
-router.get('/', getAll);
 /**
  * @swagger
  * /contacts/{Id}:
@@ -69,9 +71,10 @@ router.get('/', getAll);
  *       401:
  *         description: Invalid token
  */
-router.get('/:id', getByUserId);
+router.get('/:user', getByUserId);
 router.put('/:id', update);
 router.delete('/:id', _delete);
+router.get('/', getAll);
 
 module.exports = router;
 
@@ -83,12 +86,14 @@ function create(req, res, next) {
 }
 
 function getAll(req, res, next) {
+    console.log(res)
     contactService.getAll()
         .then(contact => res.json(contact))
         .catch(err => next(err));
 }
 
 function getByUserId(req, res, next) {
+    console.log("yann<s")    
     contactService.getByUserId(req.params.user)
         .then(contact => contact ? res.json(contact) : res.sendStatus(404))
         .catch(err => next(err));

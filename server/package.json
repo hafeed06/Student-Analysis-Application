@@ -19,6 +19,7 @@
     "express": "^4.17.2",
     "express-jwt": "^6.1.0",
     "mongoose": "^6.1.8",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "rootpath": "^0.1.2",
     "swagger-jsdoc": "^6.1.0",

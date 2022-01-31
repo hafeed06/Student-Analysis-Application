@@ -12,4 +12,5 @@ module.exports = {
     Contact: require('../models/contact'),
     Course: require('../models/course'),
     Semester: require('../models/semester'),
+    TypeCourse: require('../models/typeCourse'),
 };
