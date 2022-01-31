@@ -65,6 +65,7 @@ const AddResults = () => {
 
                             {method && method === 'csv' && (<CSVInput />)}
                             {method && method === 'manual' && (<EvaluationInputs />)}
+                        
 
 
                         </Paper>

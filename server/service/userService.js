@@ -2,6 +2,7 @@ require('dotenv').config()
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const db = require('../config/db');
+const contactService = require('../service/contactService');
 const User = db.User;
 
 module.exports = {
@@ -54,7 +55,12 @@ async function create(userParam) {
 
     user.stdCode = "ME"+user.username+String(between(10, 1000));
     // save user
-    await user.save();
+    if(await user.save()){
+        return {
+            ...user.toJSON()
+        };
+    }
+    
 }
 
 

@@ -14,11 +14,16 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from "react-router-dom"
 import '../index.css'
 
-const pages = ['Login', 'Signup', 'Chart Sample', 'Add Results','Logged Test'];
-const links = ['/login', '/signup', '/chart', '/addresults', '/loggedtest']
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+// const pages = ['Login', 'Signup', 'Chart Sample', 'Add Results'];
+// const links = ['/login', '/signup', '/chart', '/addresults']
+// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const Navbar = () => {
+
+const pages = [];
+const links = []
+const settings = [];
+
+const Navbar = ({pages, links, settings}) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -111,7 +116,7 @@ const Navbar = () => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Avatar alt="Remy Sharp" src="./static/images/avatar/2.jpg" />
                             </IconButton>
                         </Tooltip>
                         <Menu

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
-import headers from '../utils/Headers';
+import headers from './Headers';
 
 
 const cookies = new Cookies(); 

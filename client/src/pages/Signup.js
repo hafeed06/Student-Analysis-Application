@@ -53,11 +53,9 @@ const Signup = () => {
         useEffect(() => {
           console.log(data)
                         },[data])
-    
-
     return (
 
-        <div>
+        <div className="container">
             <Grid container spacing={2} className="gridHolder">
                 <Grid item xs={5} ml="auto" mr="auto">
                 <Typography variant="h4" sx={{textAlign:'center'}} pb={2}color="primary">Create an Account </Typography>
