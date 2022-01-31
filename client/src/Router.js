@@ -70,7 +70,7 @@ const MainRouter = () => {
             {loadNavbar && <Navbar pages = {pages} links = {links} settings = {settings} /> }
             <Routes>
 
-                <Route exact path="/" element={<Home />} />
+                <Route exact path="/" element={ isAuth ? <Home /> : <Navigate to="/login" /> } />
                 <Route exact path="/signup" element={<Signup />} />
                 {/* Authenticated Users will be redirected to Home if they try to go to Login route  */}
                 <Route exact path="/login" element={ !isAuth ? <Login /> : <Navigate to="/" /> } />

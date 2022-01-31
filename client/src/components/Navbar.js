@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from "react-router-dom"
 import '../index.css'
+import Logout from '../utils/Logout';
 
 // const pages = ['Login', 'Signup', 'Chart Sample', 'Add Results'];
 // const links = ['/login', '/signup', '/chart', '/addresults']
@@ -23,7 +24,7 @@ const pages = [];
 const links = []
 const settings = [];
 
-const Navbar = ({pages, links, settings}) => {
+const Navbar = ({ pages, links, settings }) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -52,7 +53,7 @@ const Navbar = ({pages, links, settings}) => {
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                     >
-                    <Link to='/'>APA</Link>
+                        <Link to='/'>APA</Link>
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -137,7 +138,10 @@ const Navbar = ({pages, links, settings}) => {
                         >
                             {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                                    {setting === 'Logout' ?
+                                        <Typography textAlign="center" onClick={Logout}>{setting}</Typography>
+                                      : <Typography textAlign="center">{setting} </Typography>
+                                    }
                                 </MenuItem>
                             ))}
                         </Menu>
