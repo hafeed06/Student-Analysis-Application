@@ -13,7 +13,7 @@ const mongoose = require('mongoose')
  *           example: sqdsqd
  *         area:
  *           type: string
- *           description: The user's email.
+ *           description: The area.
  *           example: villejuif
  *         country:
  *           type: string
