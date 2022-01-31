@@ -14,8 +14,8 @@ async function getAll() {
     return await Contact.find();
 }
 
-async function getByUserId(user) {
-    return await Contact.findOne({ user: user });
+async function getByUserId(id) {
+    return await Contact.findOne({user: id});
 }
 
 async function create(contactParm) {
