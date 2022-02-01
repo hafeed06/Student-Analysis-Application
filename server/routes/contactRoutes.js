@@ -42,6 +42,9 @@ router.post('/create', create);
  *   get:
  *     summary: Retreive a list of contact
  *     description: Use it after registring a new user
+ *     parameters:
+ *       id: 
+ *         type: string
  *     responses:
  *       200:
  *         description: A list of contacts.
@@ -52,7 +55,6 @@ router.post('/create', create);
  *       401:
  *         description: Invalid token
  */
-router.get('/', getAll);
 /**
  * @swagger
  * /contacts/{Id}:
@@ -73,6 +75,7 @@ router.get('/', getAll);
 router.get('/:id', getByUserId);
 router.put('/:id', update);
 router.delete('/:id', _delete);
+router.get('/', getAll);
 
 module.exports = router;
 

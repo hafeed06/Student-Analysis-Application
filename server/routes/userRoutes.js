@@ -41,6 +41,10 @@ router.post('/authenticate', authenticate);
  *             properties:
  *               username:
  *                 type: string
+ *               firstname:
+ *                 type: string
+ *               lastname:
+ *                 type: string
  *               email:
  *                 type: string
  *               password:
@@ -86,6 +90,7 @@ function getCurrent(req, res, next) {
 }
 
 function getById(req, res, next) {
+    console.log("what?")
     userService.getById(req.params.id)
         .then(user => user ? res.json(user) : res.sendStatus(404))
         .catch(err => next(err));

@@ -40,7 +40,7 @@ async function update(id, contactParm) {
     const contacts = await Contact.findById(id);
 
     // validate
-    if (!contacts) throw 'Course not found';
+    if (!contacts) throw 'Contact not found';
     const contact = await Contact.findOne({user:contactParm.user});
     // copy contactParm properties to contact
     Object.assign(contact, contactParm);

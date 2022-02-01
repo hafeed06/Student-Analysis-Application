@@ -1,4 +1,5 @@
 require('rootpath')();
+require('dotenv').config();
 const express = require('express');
 const app = express();
 require('rootpath')();
@@ -8,9 +9,18 @@ const jwt = require('./config/jwt');
 const errorHandler = require('./config/error-handler');
 const swaggerJsdoc      = require("swagger-jsdoc");
 const swaggerUi         = require('swagger-ui-express');
+const morgan            = require('morgan');
+var fileUpload = require('express-fileupload');
+
+//file upload
+app.use(fileUpload());
+
+// set global directory
+global.__dirname = __dirname
 
 const port = process.env.PORT
 
+// swagger configuration 
 const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
@@ -41,15 +51,17 @@ const options = {
 };
 const swaggerSpec = swaggerJsdoc(options, {explore: true});
 
+// connection data base testing 
 const connectDb = require('./config/db')
-require('dotenv').config();
+
 
 // connection data base 
 //connectDb()
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(morgan('dev'))
 
+// corsOPTIONS Letting access **
 var corsOptions = {
   "origin": true,
   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -58,6 +70,7 @@ var corsOptions = {
 }
 
 app.use(cors());
+
 // use JWT auth to secure the api
 app.use(jwt());
 
@@ -66,8 +79,12 @@ app.use('/users', require('./routes/userRoutes'));
 app.use('/contacts', require('./routes/contactRoutes'));
 app.use('/course', require('./routes/courseRoutes'));
 app.use('/semester', require('./routes/semesterRoutes'));
+app.use('/typeCourse', require('./routes/typeCourseRoutes'));
+app.use('/upload', require('./routes/importCsvRoutes'));
+app.use('/evaluate', require('./routes/evaluationRoutes'));
 app.use('/api-docs/',cors(corsOptions), swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+//error handler
 app.use(errorHandler);
 
 app.listen(port, () => {

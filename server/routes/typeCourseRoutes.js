@@ -1,40 +1,39 @@
 const express = require('express');
-const contact = require('../models/contact');
-const semesterService = require('../service/semesterService');
+const typeCourse = require('../models/typeCourse');
+const typeCourseService = require('../service/typeCourseService');
 const router = express.Router();
-const userService = require('../service/contactService');
 
 // routes
 /**
  * @swagger
- * /semester/create:
+ * /typeCourse/create:
  *   post:
- *     summary: Create a semester 
- *     description: /semester/create
+ *     summary: Create a typeCourse 
+ *     description: /typeCourse/create
  *     requestBody:
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               nameSemester:
+ *               nameTypeCourse:
  *                 type: string
  *     consumes:
  *       - application/json
  *     responses:
  *       200:
- *         description: {msg: "Semester json !"}
+ *         description: {msg: "TypeCourse json !"}
  */
 router.post('/create', create);
 /**
  * @swagger
- * /semester/:
+ * /typeCourse/:
  *   get:
- *     summary: Retreive a list of semester
- *     description: /semester/
+ *     summary: Retreive a list of course
+ *     description: List of courses 
  *     responses:
  *       200:
- *         description: A list of semester.
+ *         description: A list of course.
  *       503:
  *         description: When you're not logged
  *       500:
@@ -45,13 +44,13 @@ router.post('/create', create);
 router.get('/', getAll);
 /**
  * @swagger
- * /semester/{id}:
+ * /typeCourse/{id}:
  *   get:
- *     summary: Retreive a semester by id
- *     description: /semester/{id}
+ *     summary: Retreive a typeCourse by id
+ *     description: Retrieve one typeCourse
  *     responses:
  *       200:
- *         description: /semester/{id} semester json.
+ *         description: typeCourse json.
  *       503:
  *         description: When you're not logged
  *       500:
@@ -67,31 +66,31 @@ module.exports = router;
 
 
 function create(req, res, next) {
-    semesterService.create(req.body)
-        .then(() => res.json({}))
-        .catch(err => next(err));
+    typeCourseService.create(req.body)
+    .then(() => typeCourse ? res.json(typeCourse) : res.status(400).json({message:'bad request'}))
+    .catch(err => next(err));
 }
 
 function getAll(req, res, next) {
-    semesterService.getAll()
-        .then(contact => res.json(contact))
+    typeCourseService.getAll()
+        .then(typeCourse => res.json(typeCourse))
         .catch(err => next(err));
 }
 
 function getByUserId(req, res, next) {
-    semesterService.getByUserId(req.params.user)
-        .then(contact => contact ? res.json(contact) : res.sendStatus(404))
+    typeCourseService.getByUserId(req.params.user)
+        .then(typeCourse => typeCourse ? res.json(typeCourse) : res.sendStatus(404))
         .catch(err => next(err));
 }
 
 function update(req, res, next) {
-    semesterService.update(req.params.id, req.body)
+    typeCourseService.update(req.params.id, req.body)
         .then(() => res.json({}))
         .catch(err => next(err));
 }
 
 function _delete(req, res, next) {
-    semesterService.delete(req.params.id)
+    typeCourseService.delete(req.params.id)
         .then(() => res.json({}))
         .catch(err => next(err));
 }
