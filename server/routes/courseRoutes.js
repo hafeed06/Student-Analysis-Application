@@ -5,34 +5,38 @@ const router = express.Router();
 // routes
 /**
  * @swagger
- * /semester/create:
+ * /course/create:
  *   post:
- *     summary: Create a semester 
- *     description: /semester/create
+ *     summary: Create a course 
+ *     description: /course/create
  *     requestBody:
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               nameSemester:
+ *               nameCourse:
  *                 type: string
+ *               typeCourse:
+ *                 type: objectId
+ *               semester:
+ *                 type: objectId
  *     consumes:
  *       - application/json
  *     responses:
  *       200:
- *         description: {msg: "Semester json !"}
+ *         description: {msg: "Course json !"}
  */
 router.post('/create', create);
 /**
  * @swagger
- * /semester/:
+ * /course/:
  *   get:
- *     summary: Retreive a list of semester
- *     description: /semester/ 
+ *     summary: Retreive a list of Course
+ *     description: /course/ 
  *     responses:
  *       200:
- *         description: A list of semester.
+ *         description: A list of course.
  *       503:
  *         description: When you're not logged
  *       500:
@@ -43,10 +47,10 @@ router.post('/create', create);
 router.get('/', getAll);
 /**
  * @swagger
- * /semester/{id}:
+ * /course/{id}:
  *   get:
- *     summary: Retreive a semester by id
- *     description: /semester/{id}
+ *     summary: Retreive a course by id
+ *     description: /course/{id}
  *     responses:
  *       200:
  *         description: course json.

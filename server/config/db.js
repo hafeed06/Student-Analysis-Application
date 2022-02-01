@@ -13,4 +13,6 @@ module.exports = {
     Course: require('../models/course'),
     Semester: require('../models/semester'),
     TypeCourse: require('../models/typeCourse'),
+    Evaluation: require('../models/evaluation'),
+    Mark: require('../models/mark'),
 };

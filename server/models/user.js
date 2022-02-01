@@ -11,6 +11,10 @@ const mongoose = require('mongoose')
  *           type: objectId
  *           description: The user ID.
  *           example: sqdsqd
+ *         firstname:
+ *           type: string
+ *         lastname:
+ *           type: string
  *         email:
  *           type: string
  *           description: The user's email.
@@ -21,6 +25,14 @@ const mongoose = require('mongoose')
  *           type: string
  */
 const UserSchema = new mongoose.Schema({
+    firstname:{
+        type:String,
+        required:true
+    },
+    lastname:{
+        type:String,
+        required:true
+    },
     username:{
         type:String,
         required:true

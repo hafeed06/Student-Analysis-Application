@@ -5,6 +5,7 @@ const Course = db.Course;
 module.exports = {
     getAll,
     getById,
+    getByName,
     create,
     update,
     delete: _delete
@@ -16,6 +17,10 @@ async function getAll() {
 
 async function getById(id) {
     return await Course.findOne(id);
+}
+
+async function getByName(nameCourse) {
+    return await Course.findOne({nameCourse: nameCourse});
 }
 
 async function create(courseParm) {

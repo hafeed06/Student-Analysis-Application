@@ -1,5 +1,11 @@
 const express = require('express');
+var mongoose = require('mongoose');
 const evaluationService = require('../service/evaluationService');
+const courseService = require('../service/courseService');
+const userService = require('../service/userService');
+const typeCourseService = require('../service/typeCourseService');
+const semesterService = require('../service/semesterService');
+const markService = require('../service/markService');
 const router = express.Router();
 require('dotenv').config()
 const multer = require('multer')
@@ -7,7 +13,11 @@ const csv = require('fast-csv')
 const fs = require('fs');
 const { json } = require('body-parser');
 const db = require('../config/db');
-const User = db.User;
+const Course = db.Course;
+const Semester = db.Semester;
+const Evaluation = db.Evaluation;
+
+const Grades = db.Mark;
 
 
 
@@ -39,6 +49,32 @@ const upload = multer({
 module.exports = router;
 
 router.post('/',upload.single('file'), importCsv);
+/**
+ * @swagger
+ * /upload/evaluation:
+ *   post:
+ *     summary: Create a evaluation 
+ *     description: upload/evaluation in this api you provide those objects and the result
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               user:
+ *                 type: objectId
+ *               course:
+ *                 type: objectId
+ *               result:
+ *                 type: string
+ *               date:
+ *                 type: Date
+ *     consumes:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: {msg: "Evaluation json !"}
+ */
 router.post('/evaluation', evaluation);
 
 function importCsv(req, res) {
@@ -62,11 +98,45 @@ function importCsv(req, res) {
 }
 
 async function evaluation(req, res){
-    console.log(req.body)
-    const user = await User.findById(id);
+    try {
+        console.log(req.body)
+        const user = await userService.getByName(req.body.username);
+        console.log(user)
+        // validate
+        if (!user) throw res.json({message: "User not found"});
+        const course = await courseService.getByName(req.body.course)
+        // validate
+        if (!course) throw res.json({message: "course not found"});
+        const evaluation = await evaluationService.getByCourseDate(course, req.body.date)
+        console.log(evaluation)
+        // validate
+        if (!evaluation)
+        {
+            throw res.json({message: "evaluation not found"});
+        }
+        else
+        {
 
-    // validate
-    if (!user) throw 'User not found';
+            const markParm = {
+                "result": req.body.result,
+                "dateResult": Date.now(),
+                "user": mongoose.Types.ObjectId(user),
+                "evaluation": mongoose.Types.ObjectId(evaluation)
+            }
+            try {
+                const mark = markService.create(markParm)
+                res.send(markParm)
+            } catch (error) {
+                res.send(error)
+                console.log(error)
+                
+            }
+        }
+
+
+    } catch (error) {
+        console.log(" error in the first phase")
+    }
 
     return res.json()
 }

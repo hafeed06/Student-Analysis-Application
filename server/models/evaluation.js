@@ -6,9 +6,17 @@ const EvaluationSchema = new mongoose.Schema({
         required:true
     },
     course : {
-        type: [Schema.Types.ObjectId],
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Course'
     }
 })
+
+EvaluationSchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: function (doc, ret) {
+        delete ret._id;
+    }
+});
 
 module.exports = mongoose.model('Evaluation', EvaluationSchema)

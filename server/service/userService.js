@@ -9,6 +9,7 @@ module.exports = {
     authenticate,
     getAll,
     getById,
+    getByName,
     create,
     update,
     delete: _delete
@@ -31,6 +32,10 @@ async function getAll() {
 
 async function getById(id) {
     return await User.findById(id);
+}
+
+async function getByName(username) {
+    return await User.findOne({username : username});
 }
 
 function between(min, max) {  

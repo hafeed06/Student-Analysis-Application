@@ -81,6 +81,7 @@ app.use('/course', require('./routes/courseRoutes'));
 app.use('/semester', require('./routes/semesterRoutes'));
 app.use('/typeCourse', require('./routes/typeCourseRoutes'));
 app.use('/upload', require('./routes/importCsvRoutes'));
+app.use('/evaluate', require('./routes/evaluationRoutes'));
 app.use('/api-docs/',cors(corsOptions), swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 //error handler
