@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from "react-router-dom"
 import '../index.css'
+import '../animations.css'
 import Logout from '../utils/Logout';
 import BubbleChartIcon from '@mui/icons-material/BubbleChart';
 
@@ -54,7 +55,7 @@ const Navbar = ({ pages, links, settings }) => {
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                     >   
-                        <Link to='/'><BubbleChartIcon /> APA</Link>
+                        <Link to='/'><BubbleChartIcon className="rotate-vert-center"/> APA</Link>
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
