@@ -10,6 +10,7 @@ import AuthenticationTester from './tests/AuthenticationTester'
 import { useState, useEffect } from 'react'
 import CheckAuth from './utils/checkAuth';
 import UserInfoTester from './tests/UserInfoTester'
+import HomePieChart from './components/charts/HomePieChart'
 
 
 
@@ -84,6 +85,7 @@ const MainRouter = () => {
                 { /* Test Routes */ }
                 <Route exact path="/testauth" element={<AuthenticationTester />} />
                 <Route exact path="/testinfo" element={<UserInfoTester />} />
+                <Route exact path="/testpie" element={<HomePieChart /> } /> 
 
 
             </Routes>

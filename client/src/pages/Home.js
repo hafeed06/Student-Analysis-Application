@@ -7,6 +7,7 @@ import ActionAreaCard from '../components/cards/HomeUserCard';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import blueGradient from '../styles/blueGradient';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import HomePieChart from '../components/charts/HomePieChart';
 
 const Home = () => {
 
@@ -65,6 +66,9 @@ const Home = () => {
                                <Typography variant="body2">10</Typography>
                                </div>
 
+                           </Paper>
+                           <Paper style={{padding:'5px', marginTop:'10px'}}>
+                               <HomePieChart /> 
                            </Paper>
 
                     </Box>
