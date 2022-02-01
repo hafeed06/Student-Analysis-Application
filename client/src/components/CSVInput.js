@@ -80,8 +80,6 @@ const CSVInput = () => {
             : <Typography variant="body2">Uploaded File: {file.name}</Typography>
         }
 
-
-<Button onClick={handleClick}>Open simple snackbar</Button>
 <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%', border: 'solid 1px #10540B' }}>
           {message}

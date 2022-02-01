@@ -4,6 +4,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import capitalize from '../../utils/capitalize';
 
 export default function HomeAccordion({data}) {
   return (
@@ -20,8 +21,8 @@ export default function HomeAccordion({data}) {
           {
             Object.entries(data).map(([key, value]) => (
               <div className="inputContainer" key={`div ${key}`}>
-              <Typography component="span" key={`key ${key}`} variant="body2" color="primary">{key.toUpperCase()}</Typography>
-              <Typography component="span" key={`value ${key}`} variant="body2">{value}</Typography>
+              <Typography component="span" key={`key ${key}`} variant="body2" color="primary">{capitalize(key)}</Typography>
+              <Typography component="span" key={`value ${key}`} variant="body2">{capitalize(value)}</Typography>
               </div>
             )
 
