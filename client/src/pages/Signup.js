@@ -21,7 +21,7 @@ const Signup = () => {
 
         // Submit and Error Management 
         const [submitted, setSubmitted] = useState(null)
-        const [error, setError] = useState(null)
+        const [sError, setError] = useState(null)
         // State Management
         const initialDate = new Date()
         const initialState = {
@@ -76,7 +76,6 @@ const Signup = () => {
                     console.log(addContact.data)
                     console.log("Contact Added")
                     // Everything submitted 
-                    setSubmitted(true)
                 } catch (error) {
                   console.log(error.response.data)
                   setError(true)
@@ -85,15 +84,18 @@ const Signup = () => {
               console.log(error.response.data)
               setError(true)
             }
+            setSubmitted(true)
+            console.log("Error State => " + sError)
+            console.log("Submission State => " + submitted)
         }
     
         // Logging  - Dev Only 
         useEffect(() => {
           console.log(data)
         },[data])
-        // Redirect after login useEffect 
+        // Redirect after Sign up useEffect 
         useEffect(() => {
-          (submitted && !error) && setTimeout(goHome(), 6000)
+          (submitted && !sError) && setTimeout(goHome(), 6000)
         },[submitted])
 
 
@@ -104,8 +106,8 @@ const Signup = () => {
                 <Grid item xs={5} ml="auto" mr="auto">
                 <Typography variant="h4" sx={{textAlign:'center'}} pb={2}color="primary">Create an Account </Typography>
         <Paper sx={{paddingTop:2, paddingLeft:2, paddingRight:2, justifyContent:'center', textAlign:'center'}}>
-        {submitted && error && <Typography variant="body2" color="error">Incorrect Credentials ... Please Try again</Typography> }
-        {(!submitted || error) && (
+        {(submitted && sError) && <Typography variant="body2" color="error">An Error occured, please try again</Typography> }
+        {(!submitted || sError) && (
         <form onSubmit={handleSubmit}>
             <TextField name="firstname" label="First Name" variant="outlined" sx={smallInput} onChange={handleChange}/>
             <TextField name="lastname" label="Last Name" variant="outlined" sx={smallInput} onChange={handleChange}/>
@@ -125,7 +127,7 @@ const Signup = () => {
             </Typography>
           </form>
   )}
-              {(submitted && !error) && (<Typography variant="h6" color="success">You Signed up successfully !  </Typography>)}
+              {(submitted && !sError) && (<Typography variant="h6" color="success">You Signed up successfully !  </Typography>)}
           </Paper>
                 </Grid>
             </Grid>
