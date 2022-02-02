@@ -19,16 +19,17 @@ async function getById(id) {
     return await Evaluation.findOne(id);
 }
 
-async function getByCourseDate(courseId, date) {
-    return await Evaluation.findOne({course: courseId, dateEvaluation: date});
+async function getByCourseDate(course, date) {
+    return await Evaluation.findOne({course: course, dateEvaluation: date});
 }
 
 async function create(evaluationParam) {
     // validate
     try {
         const evaluation = new Evaluation(evaluationParam);
-        // save contact
-        await evaluation.save();
+        // save evaluation
+        console.log(evaluation.dateEvaluation)
+        return await evaluation.save();
         }catch(error){
             console.log(error)
         }

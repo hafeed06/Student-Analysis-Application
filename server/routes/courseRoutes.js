@@ -82,7 +82,7 @@ function getAll(req, res, next) {
 
 function getByUserId(req, res, next) {
     courseService.getByUserId(req.params.user)
-        .then(contact => contact ? res.json(contact) : res.sendStatus(404))
+        .then(course => course ? res.json(course) : res.sendStatus(404))
         .catch(err => next(err));
 }
 
