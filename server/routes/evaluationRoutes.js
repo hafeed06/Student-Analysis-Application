@@ -4,6 +4,7 @@ const evaluationService = require('../service/evaluationService');
 const router = express.Router();
 const userService = require('../service/userService');
 const { now } = require('mongoose');
+const courseService = require('../service/courseService');
 
 // routes
 /**
@@ -92,6 +93,20 @@ router.post('/topGrade', evaluationGrade);
  */
 router.get('/latestMonths/:number', lateGradeSixmonth);
 
+/**
+ * @swagger
+ * /dateEvaluation/{course}:
+ *   get:
+ *     summary: Returns the evaluation dates of that course
+ *     description: evaluate/dateEvaluation/{course} provide parameters
+ *     consumes:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: {msg: "Evaluation grades list json !"}
+ */
+ router.get('/dateEvaluation/:course', getByCourse);
+
 module.exports = router;
 
 
@@ -109,6 +124,13 @@ function getAll(req, res, next) {
 
 function getById(req, res, next) {
     evaluationService.getById(req.params.id)
+        .then(evaluation => evaluation ? res.json(evaluation) : res.sendStatus(404))
+        .catch(err => next(err));
+}
+
+async function getByCourse(req, res, next) {
+    const course = await courseService.getByName(req.params.course)
+    evaluationService.getByCourse(course)
         .then(evaluation => evaluation ? res.json(evaluation) : res.sendStatus(404))
         .catch(err => next(err));
 }

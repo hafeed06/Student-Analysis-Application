@@ -24,7 +24,7 @@ async function create(RoleParm) {
         const role = await Role.findOne({ nameRole: RoleParm.nameRole })
         if (role) {
             // copy RoleParm properties to Role
-            Object.assign(Role, RoleParm);
+            Object.assign(role, RoleParm);
         }else{
             const role = new Role(RoleParm);
             // save Role
@@ -37,10 +37,10 @@ async function create(RoleParm) {
 
 
 async function update(id, RoleParm) {
-    const semseters = await Role.findById(id);
+    const roles = await Role.findById(id);
 
     // validate
-    if (!semseters) throw 'Role not found';
+    if (!roles) throw 'Role not found';
     const role = await Role.findOne({nameRole:RoleParm.nameRole});
     // copy RoleParm properties to Role
     Object.assign(role, RoleParm);
