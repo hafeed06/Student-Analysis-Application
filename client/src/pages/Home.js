@@ -3,32 +3,30 @@ import React, { useEffect, useState } from 'react'
 import getUserFullInformation from '../utils/getUserFullInformation';
 import { Paper, Grid, Box } from '@mui/material';
 import CustomLocaleTextGrid from '../components/DataGrid';
-import ActionAreaCard from '../components/cards/HomeUserCard';
+import HomeUserCard from '../components/cards/HomeUserCard';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import blueGradient from '../styles/blueGradient';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import HomePieChart from '../components/charts/HomePieChart';
 
 const Home = () => {
-
     const [userInformation, setUserInformation] = useState(null);
+    const [userInformationLoaded, setUserInformationLoaded] = useState(null)
     useEffect(() => {
 
         const userInformationFunction = async () => {
             setUserInformation(await getUserFullInformation())
+            !userInformationLoaded && setUserInformationLoaded(true)
         }
-
+        console.log("Home useEffect Re-Rendered! ")
         userInformationFunction();
-
-    }, []);
+    }, [userInformationLoaded]);
 
     return (
         <div className='container'>
-
-
             <Grid container spacing={2} className="gridHolder">
                 <Grid item xs={3} >
-                    {userInformation && <ActionAreaCard image="./student.jpg" data={userInformation} />}
+                    {userInformation && <HomeUserCard image="./graduating-student.png" data={userInformation} />}
                 </Grid>
                 <Grid item xs={6} >
                     <Box style={{ border: "solid 1px #D5D8DB", borderRadius: '4px', padding: "10px" }} sx={{ background: blueGradient }}>
@@ -70,10 +68,8 @@ const Home = () => {
                            <Paper style={{padding:'5px', marginTop:'10px'}}>
                                <HomePieChart /> 
                            </Paper>
-
                     </Box>
                 </Grid>
-
             </Grid>
 
 

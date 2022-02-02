@@ -24,7 +24,7 @@ const EvaluationInputs = () => {
 
     ////////////////////// 
     useEffect(() => {
-        // console.log(inputs)
+        console.log(inputs)
       }, [inputs]);
 
     //////////////////////////////

@@ -10,29 +10,14 @@ import api from '../utils/api';
 import headers from '../utils/Headers';
 import { Link } from 'react-router-dom';
 import { useLocation} from 'react-router-dom';
+import '../index.css'
 
 const cookies = new Cookies(); 
 
 const bigInput = {width:'95%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
-// const smallInput = {width:'46%', marginBottom:1, marginTop:1, marginRight:1, marginLeft:1}
 
 
 const Login = () => {
-
-  // History for redirecting if login is successful 
-
-  const location = useLocation()
-
-  // const testAPI = async () => {
-  //   console.log("Token is => " + cookies.get('token'))
-  //   try {
-  //     const res = await api.get('/users', {headers: headers}
-  //     )
-  //     console.log(res.data)
-  //   } catch (error) {
-  //     console.log(error.response.data)
-  //   }
-  // }
 
     const initialState = {
         username:'',
@@ -78,7 +63,8 @@ const Login = () => {
         <Box sx={{ flexGrow: 1 }} mt={10} >
         <Grid container spacing={2}>
         <Grid item xs={12} sm={8} md={4} ml="auto" mr="auto">
-        <Typography variant="h4" sx={{textAlign:'center'}} pb={2}color="primary">Log in to APA </Typography>
+        <Typography variant="h4" sx={{textAlign:'center'}} pb={2}color="primary">Student Performance Analyzer</Typography>
+        <Typography variant="h6" sx={{textAlign:'center'}} pb={2}color="primary">LOGIN</Typography>
         <Paper sx={{paddingTop:2, paddingLeft:2, paddingRight:2, justifyContent:'center', textAlign:'center'}}>
           {/* This error will show if the form is submitted and there was an error */}
           {submitted && error && <Typography variant="body2" color="error">Incorrect Credentials ... Please Try again</Typography> }

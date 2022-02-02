@@ -36,7 +36,7 @@ async function create(courseParm) {
             await course.save();
         }
     } catch (error) {
-        throw 'Course "' + courseParm.nameCourse + '" has an error';
+        throw 'Course "' + error + '" has an error';
     }
 }
 
