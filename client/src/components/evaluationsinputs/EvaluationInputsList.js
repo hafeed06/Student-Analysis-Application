@@ -137,7 +137,7 @@ const EvaluationInputsList = ({ id, inputs, setInputs }) => {
                     labelId="demo-simple-select-label" id="demo-simple-select" value={inputDetails.course} name="course" onChange={handleFieldChange}
                     sx={{width:"200px"}} label ="Course Name"
                 >
-                    {courseList.map(e => <MenuItem key={e.nameCourse} value={e.nameCourse}>{e.nameCourse}</MenuItem>)}
+                    {courseList.map(e => <MenuItem key={e.id} value={e.nameCourse}>{e.nameCourse}</MenuItem>)}
 
                 </Select>
                 </FormControl>
