@@ -14,6 +14,7 @@ import HomePieChart from './components/charts/HomePieChart'
 import AddCourse from './pages/AddCourse'
 import AddCourseType from './pages/AddCourseType'
 import AddSemester from './pages/AddSemester'
+import AddEvaluation from './pages/AddEvaluation'
 
 
 
@@ -33,8 +34,8 @@ const MainRouter = () => {
     const guestSettings = []
 
 
-    const userPages = ['Performance Metrics', 'Add Results', 'Add Course', 'Add Course Type', 'Add Semester']
-    const userLinks = ['/chart', '/addresults', '/addCourse', '/addCourseType', '/addSemester']
+    const userPages = ['Performance Metrics', 'Add Results', 'Add Course', 'Add Course Type', 'Add Semester', 'Add Evaluation']
+    const userLinks = ['/chart', '/addresults', '/addCourse', '/addCourseType', '/addSemester', '/addEvaluation']
     const userSettings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
     useEffect(() => {
@@ -86,9 +87,8 @@ const MainRouter = () => {
                 <Route exact path="/addCourse" element={isAuth? <AddCourse /> : <Navigate to="/login" />}/>
                 <Route exact path="/addCourseType" element={isAuth? <AddCourseType /> : <Navigate to="/login" />}/>
                 <Route exact path="/addSemester" element={isAuth? <AddSemester /> : <Navigate to="/login" />}/>
-                
-
-
+                <Route exact path="/addEvaluation" element={isAuth? <AddEvaluation /> : <Navigate to="/login" />}/>
+            
                 { /* Test Routes */ }
                 <Route exact path="/testauth" element={<AuthenticationTester />} />
                 <Route exact path="/testinfo" element={<UserInfoTester />} />
