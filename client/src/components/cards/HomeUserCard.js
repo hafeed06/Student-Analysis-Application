@@ -8,8 +8,9 @@ import SchoolIcon from '@mui/icons-material/School';
 import '../../index.css'
 import HomeAccordion from '../accordions/HomeAccordion';
 import blueGradient from '../../styles/blueGradient';
+import capitalize from '../../utils/capitalize';
 
-export default function ActionAreaCard({image, data}) {
+export default function HomeUserCard({image, data}) {
 
     const backgroundStyle = `/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#499bea+0,207ce5+100;Blue+3d+%237 */
     background: #499bea; /* Old browsers */
@@ -30,7 +31,7 @@ export default function ActionAreaCard({image, data}) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div" color="white">
-           <SchoolIcon size="large"/> Abdelhafid El Bekkaoui
+           <SchoolIcon size="large"/> {capitalize(data.username)}
           </Typography>
           <HomeAccordion data = {data} /> 
         </CardContent>

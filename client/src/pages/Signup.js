@@ -75,6 +75,7 @@ const Signup = () => {
                     const addContact = await api.post('/contacts/create', contactData)
                     console.log(addContact.data)
                     console.log("Contact Added")
+                    setError(false)
                     // Everything submitted 
                 } catch (error) {
                   console.log(error.response.data)
@@ -94,9 +95,9 @@ const Signup = () => {
           console.log(data)
         },[data])
         // Redirect after Sign up useEffect 
-        useEffect(() => {
-          (submitted && !sError) && setTimeout(goHome(), 6000)
-        },[submitted])
+        // useEffect(() => {
+        //   (submitted && !sError) && setTimeout(goHome(), 6000)
+        // },[submitted])
 
 
     return (
@@ -104,7 +105,8 @@ const Signup = () => {
         <div className="container">
             <Grid container spacing={2} className="gridHolder">
                 <Grid item xs={5} ml="auto" mr="auto">
-                <Typography variant="h4" sx={{textAlign:'center'}} pb={2}color="primary">Create an Account </Typography>
+                <Typography variant="h4" sx={{textAlign:'center'}} pb={2}color="primary">Student Performance Analyzer</Typography>
+        <Typography variant="h6" sx={{textAlign:'center'}} pb={2}color="primary">Create an account</Typography>
         <Paper sx={{paddingTop:2, paddingLeft:2, paddingRight:2, justifyContent:'center', textAlign:'center'}}>
         {(submitted && sError) && <Typography variant="body2" color="error">An Error occured, please try again</Typography> }
         {(!submitted || sError) && (

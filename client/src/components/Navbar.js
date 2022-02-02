@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState, useEffect} from 'react'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -16,6 +17,8 @@ import '../index.css'
 import '../animations.css'
 import Logout from '../utils/Logout';
 import BubbleChartIcon from '@mui/icons-material/BubbleChart';
+import getUserFullInformation from '../utils/getUserFullInformation';
+import capitalize from '../utils/capitalize';
 
 // const pages = ['Login', 'Signup', 'Chart Sample', 'Add Results'];
 // const links = ['/login', '/signup', '/chart', '/addresults']
@@ -26,7 +29,8 @@ const pages = [];
 const links = []
 const settings = [];
 
-const Navbar = ({ pages, links, settings }) => {
+
+const Navbar = ({ pages, links, settings, isAuth}) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -45,6 +49,21 @@ const Navbar = ({ pages, links, settings }) => {
         setAnchorElUser(null);
     };
 
+    const [userInformation, setUserInformation] = useState(null);
+    const [userInformationLoaded, setUserInformationLoaded] = useState(null)
+    useEffect(() => {
+
+        const userInformationFunction = async () => {
+            setUserInformation(await getUserFullInformation())
+            !userInformationLoaded && setUserInformationLoaded(true)
+        }
+        console.log("Home useEffect Re-Rendered! ")
+        // You only want to get user Information if they are authenticated
+        isAuth && userInformationFunction();
+    }, [userInformationLoaded]);
+
+    // Get Full user Information 
+    
     return (
         <AppBar position="static" color="primary">
             <Container maxWidth="xl">
@@ -55,7 +74,7 @@ const Navbar = ({ pages, links, settings }) => {
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                     >   
-                        <Link to='/'><BubbleChartIcon className="rotate-vert-center"/> APA</Link>
+                        <Link to='/'><BubbleChartIcon className="rotate-vert-center"/> SPA</Link>
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -115,11 +134,14 @@ const Navbar = ({ pages, links, settings }) => {
                             </Button>
                         ))}
                     </Box>
+                    {userInformationLoaded && <Typography pr={2}>{
+                        capitalize(userInformation.username)
+                    }</Typography>}
+                    {isAuth && (<Box sx={{ flexGrow: 0 }}>
 
-                    <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="./static/images/avatar/2.jpg" />
+                                <Avatar alt="Remy Sharp" src="./graduating-student.png" />
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -147,7 +169,7 @@ const Navbar = ({ pages, links, settings }) => {
                                 </MenuItem>
                             ))}
                         </Menu>
-                    </Box>
+                    </Box>)}
                 </Toolbar>
             </Container>
         </AppBar>

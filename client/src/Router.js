@@ -11,6 +11,9 @@ import { useState, useEffect } from 'react'
 import CheckAuth from './utils/checkAuth';
 import UserInfoTester from './tests/UserInfoTester'
 import HomePieChart from './components/charts/HomePieChart'
+import AddCourse from './pages/AddCourse'
+import AddCourseType from './pages/AddCourseType'
+import AddSemester from './pages/AddSemester'
 
 
 
@@ -30,8 +33,8 @@ const MainRouter = () => {
     const guestSettings = []
 
 
-    const userPages = ['Chart Sample', 'Add Results']
-    const userLinks = ['/chart', '/addresults']
+    const userPages = ['Performance Metrics', 'Add Results', 'Add Course', 'Add Course Type', 'Add Semester']
+    const userLinks = ['/chart', '/addresults', '/addCourse', '/addCourseType', '/addSemester']
     const userSettings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
     useEffect(() => {
@@ -43,6 +46,7 @@ const MainRouter = () => {
             setIsAuth(result)
         }
         AuthResult();
+        console.log("Router useEffect 1 Re-Rendered")
 
     }, []);
 
@@ -69,7 +73,7 @@ const MainRouter = () => {
 
     return (
         <Router>
-            {loadNavbar && <Navbar pages = {pages} links = {links} settings = {settings} /> }
+            {loadNavbar && <Navbar pages = {pages} links = {links} settings = {settings} isAuth = {isAuth} /> }
             <Routes>
 
                 <Route exact path="/" element={ isAuth ? <Home /> : <Navigate to="/login" /> } />
@@ -78,7 +82,10 @@ const MainRouter = () => {
                 <Route exact path="/login" element={ !isAuth ? <Login /> : <Navigate to="/" /> } />
                 {/* Chart is a private authenticated only route, if user is not authenticated they will be redirect to Login */}
                 <Route exact path="/chart" element={isAuth? <Chart1 /> : <Navigate to="/login" />}/>
-                <Route exact path="/addresults" element={< AddResults />} />
+                <Route exact path="/addResults" element={isAuth? <AddResults /> : <Navigate to="/login" />}/>
+                <Route exact path="/addCourse" element={isAuth? <AddCourse /> : <Navigate to="/login" />}/>
+                <Route exact path="/addCourseType" element={isAuth? <AddCourseType /> : <Navigate to="/login" />}/>
+                <Route exact path="/addSemester" element={isAuth? <AddSemester /> : <Navigate to="/login" />}/>
                 
 
 
