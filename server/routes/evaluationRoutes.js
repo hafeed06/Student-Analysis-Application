@@ -70,13 +70,13 @@ module.exports = router;
 
 function create(req, res, next) {
     evaluationService.create(req.body)
-        .then(() => res.json({}))
+        .then(evaluation => evaluation ? res.json(evaluation) : res.sendStatus(404))
         .catch(err => next(err));
 }
 
 function getAll(req, res, next) {
     evaluationService.getAll()
-        .then(contact => res.json(contact))
+        .then(evaluation => res.json(evaluation))
         .catch(err => next(err));
 }
 

@@ -9,7 +9,9 @@ const markService = require('../service/markService');
 const router = express.Router();
 require('dotenv').config()
 const multer = require('multer')
+const csv_parser = require('csv-parser')
 const csv = require('fast-csv')
+const csvjson =require('csvtojson')
 const fs = require('fs');
 const { json } = require('body-parser');
 const db = require('../config/db');
@@ -48,7 +50,7 @@ const upload = multer({
 
 module.exports = router;
 
-router.post('/',upload.single('file'), importCsv);
+router.post('/', upload.single("file"), importCsv);
 /**
  * @swagger
  * /upload/evaluation:
@@ -77,24 +79,20 @@ router.post('/',upload.single('file'), importCsv);
  */
 router.post('/evaluation', evaluation);
 
-function importCsv(req, res) {
+async function importCsv(req, res) {
+    console.log(req.files)
     if (!req.files)
         return res.status(400).send('No files were uploaded.');
-        var csvFile = req.files.file;
-
+        const csvFile = req.files.file   
         var csvInfo = [];
-        //transform csv to string 
-        csv.fromString(csvFile.data.toString(), {
-            headers: true,
-            ignoreEmpty: true
-        })
-        //inserting data in each table
-        .on("data", function(data){
-            data['userName'] = new mongoose.Types.ObjectId();
-            
-            authors.push(data);
-        });
-
+        csvjson()
+        .fromStream(req.files.file.data)
+        .subscribe((json)=>{
+            return new Promise((resolve,reject)=>{
+                // long operation for each json e.g. transform / write into database.
+                console.log(json)
+            })
+        }, onError, onComplete)
 }
 
 async function evaluation(req, res){
@@ -107,8 +105,8 @@ async function evaluation(req, res){
         const course = await courseService.getByName(req.body.course)
         // validate
         if (!course) throw res.json({message: "course not found"});
+        console.log(course)
         const evaluation = await evaluationService.getByCourseDate(course, req.body.date)
-        console.log(evaluation)
         // validate
         if (!evaluation)
         {
@@ -116,7 +114,6 @@ async function evaluation(req, res){
         }
         else
         {
-
             const markParm = {
                 "result": req.body.result,
                 "dateResult": Date.now(),
@@ -125,18 +122,15 @@ async function evaluation(req, res){
             }
             try {
                 const mark = markService.create(markParm)
-                res.send(markParm)
+                if(!mark) throw res.json({message: "mark error"})
+                console.log(mark)
+                return res.json({mark: mark})
             } catch (error) {
                 res.send(error)
                 console.log(error)
-                
             }
         }
-
-
     } catch (error) {
         console.log(" error in the first phase")
     }
-
-    return res.json()
 }

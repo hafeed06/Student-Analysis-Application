@@ -5,6 +5,7 @@ const Mark = db.Mark;
 module.exports = {
     getAll,
     getById,
+    getByUser,
     create,
     update,
     delete: _delete
@@ -18,18 +19,22 @@ async function getById(id) {
     return await Mark.findOne(id);
 }
 
+async function getByUser(id) {
+    return await Mark.findOne({user: id});
+}
+
 async function create(markParam) {
     // validate
     const mark = await Mark.findOne({ course: markParam.course, user: markParam.user })
     if (mark) {
 
         Object.assign(mark, markParam);
-        await mark.save();
+        return await mark.save();
     }
     try {
         const mark = new Mark(markParam);
         // save contact
-        await mark.save();
+        return await mark.save();
         }catch(error){
             console.log(error)
         }

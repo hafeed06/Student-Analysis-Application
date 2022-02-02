@@ -12,8 +12,7 @@ const swaggerUi         = require('swagger-ui-express');
 const morgan            = require('morgan');
 var fileUpload = require('express-fileupload');
 
-//file upload
-app.use(fileUpload());
+
 
 // set global directory
 global.__dirname = __dirname
@@ -80,6 +79,8 @@ app.use('/contacts', require('./routes/contactRoutes'));
 app.use('/course', require('./routes/courseRoutes'));
 app.use('/semester', require('./routes/semesterRoutes'));
 app.use('/typeCourse', require('./routes/typeCourseRoutes'));
+//file upload
+app.use(fileUpload());
 app.use('/upload', require('./routes/importCsvRoutes'));
 app.use('/evaluate', require('./routes/evaluationRoutes'));
 app.use('/api-docs/',cors(corsOptions), swaggerUi.serve, swaggerUi.setup(swaggerSpec));
