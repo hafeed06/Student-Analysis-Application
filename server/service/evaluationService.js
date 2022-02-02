@@ -6,6 +6,7 @@ module.exports = {
     getAll,
     getById,
     getByCourseDate,
+    getByCourse,
     create,
     update,
     delete: _delete
@@ -21,6 +22,10 @@ async function getById(id) {
 
 async function getByCourseDate(course, date) {
     return await Evaluation.findOne({course: course, dateEvaluation: date});
+}
+
+async function getByCourse(course) {
+    return await Evaluation.find({course: course});
 }
 
 async function create(evaluationParam) {

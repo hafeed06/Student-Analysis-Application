@@ -7,6 +7,7 @@ module.exports = {
     getById,
     getByUser,
     getByUserResult,
+    getByDate,
     create,
     update,
     delete: _delete
@@ -61,4 +62,10 @@ async function _delete(id) {
 async function getByUserResult(user){
     console.log(user)
     return await  Mark.find({user: user}).where('result').gt(15).sort('result').where("asc").limit(5)
+}
+
+async function getByDate(user, date, number){
+    date.setMonth(date.getMonth() - number)
+    console.log(date)
+    return await  Mark.find({user: user}).where('dateResult').lt(date).sort('result').where("asc").limit(5)
 }

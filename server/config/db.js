@@ -15,4 +15,6 @@ module.exports = {
     TypeCourse: require('../models/typeCourse'),
     Evaluation: require('../models/evaluation'),
     Mark: require('../models/mark'),
+    Role: require('../models/role'),
+    Admin: require('../models/admin'),
 };
