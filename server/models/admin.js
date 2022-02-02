@@ -10,9 +10,17 @@ const AdminSchema = new mongoose.Schema({
         required:true
     },
     role : {
-        type: [Schema.Types.ObjectId],
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Role'
     }
 })
+
+AdminSchema.set('toJSON', {
+    virtuals: true,
+    versionKey: false,
+    transform: function (doc, ret) {
+        delete ret._id;
+    }
+});
 
 module.exports = mongoose.model('Admin', AdminSchema)

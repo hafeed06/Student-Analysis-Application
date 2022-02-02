@@ -68,9 +68,9 @@ router.delete('/:id', _delete);
 /**
  * @swagger
  * /topGrade:
- *   get:
+ *   post:
  *     summary: Returns the 5 top Grades 
- *     description: evaluate/topGrade in this api you provide those objects and the result
+ *     description: evaluate/topGrade 
  *     consumes:
  *       - application/json
  *     responses:
