@@ -3,6 +3,7 @@ const markService = require('../service/markService');
 const evaluationService = require('../service/evaluationService');
 const router = express.Router();
 const userService = require('../service/userService');
+const { now } = require('mongoose');
 
 // routes
 /**
@@ -67,9 +68,9 @@ router.delete('/:id', _delete);
 /**
  * @swagger
  * /topGrade:
- *   get:
+ *   post:
  *     summary: Returns the 5 top Grades 
- *     description: evaluate/topGrade in this api you provide those objects and the result
+ *     description: evaluate/topGrade 
  *     consumes:
  *       - application/json
  *     responses:
@@ -77,6 +78,19 @@ router.delete('/:id', _delete);
  *         description: {msg: "Evaluation grades list json !"}
  */
 router.post('/topGrade', evaluationGrade);
+/**
+ * @swagger
+ * /latestMonths/{number}:
+ *   get:
+ *     summary: Returns the 5 top Grades of the latest months  
+ *     description: evaluate/latestMonths/{number} provide parameters
+ *     consumes:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: {msg: "Evaluation grades list json !"}
+ */
+router.get('/latestMonths/:number', lateGradeSixmonth);
 
 module.exports = router;
 
@@ -116,6 +130,18 @@ async function evaluationGrade(req, res, next) {
     try {
         const mark = await markService.getByUserResult(user)
         return res.send(mark)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function lateGradeSixmonth(req, res, next) {
+    const user = await userService.getById(req.user.sub);
+    try {
+        const date = new Date()
+        await markService.getByDate(user, date, req.params.number)
+        .then(mark => mark? res.send(mark) : res.sendStatus(400).json({message: "this record doesn't exist"}))
+        .catch(err => next(err))
     } catch (error) {
         console.log(error)
     }
