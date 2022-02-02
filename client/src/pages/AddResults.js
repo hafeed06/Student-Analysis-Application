@@ -44,8 +44,6 @@ const AddResults = () => {
     return (
         <div>
             {/* <CSVReader onFileLoaded={(data, fileInfo, originalFile) => console.dir(data, fileInfo, originalFile)} /> */}
-
-
             <Box sx={{ flexGrow: 1 }} mt={10} >
                 <Grid container spacing={2}>
                     <Grid item xs={11} sm={11} md={11} ml="auto" mr="auto">

@@ -75,6 +75,7 @@ const Signup = () => {
                     const addContact = await api.post('/contacts/create', contactData)
                     console.log(addContact.data)
                     console.log("Contact Added")
+                    setError(false)
                     // Everything submitted 
                 } catch (error) {
                   console.log(error.response.data)
@@ -94,9 +95,9 @@ const Signup = () => {
           console.log(data)
         },[data])
         // Redirect after Sign up useEffect 
-        useEffect(() => {
-          (submitted && !sError) && setTimeout(goHome(), 6000)
-        },[submitted])
+        // useEffect(() => {
+        //   (submitted && !sError) && setTimeout(goHome(), 6000)
+        // },[submitted])
 
 
     return (
