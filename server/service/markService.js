@@ -6,6 +6,7 @@ module.exports = {
     getAll,
     getById,
     getByUser,
+    getByUserResult,
     create,
     update,
     delete: _delete
@@ -57,3 +58,7 @@ async function _delete(id) {
     await Mark.findByIdAndRemove(id);
 }
 
+async function getByUserResult(user){
+    console.log(user)
+    return await  Mark.find({user: user}).where('result').gt(15).sort('result').where("asc").limit(5)
+}

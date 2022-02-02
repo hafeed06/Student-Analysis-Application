@@ -1,8 +1,8 @@
 const express = require('express');
-const contact = require('../models/contact');
+const markService = require('../service/markService');
 const evaluationService = require('../service/evaluationService');
 const router = express.Router();
-const userService = require('../service/contactService');
+const userService = require('../service/userService');
 
 // routes
 /**
@@ -61,9 +61,22 @@ router.get('/', getAll);
  *       401:
  *         description: Invalid token
  */
-router.get('/:id', getByUserId);
+router.get('/:id', getById);
 router.put('/:id', update);
 router.delete('/:id', _delete);
+/**
+ * @swagger
+ * /topGrade:
+ *   get:
+ *     summary: Returns the 5 top Grades 
+ *     description: evaluate/topGrade in this api you provide those objects and the result
+ *     consumes:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: {msg: "Evaluation grades list json !"}
+ */
+router.post('/topGrade', evaluationGrade);
 
 module.exports = router;
 
@@ -80,9 +93,9 @@ function getAll(req, res, next) {
         .catch(err => next(err));
 }
 
-function getByUserId(req, res, next) {
-    evaluationService.getByUserId(req.params.user)
-        .then(contact => contact ? res.json(contact) : res.sendStatus(404))
+function getById(req, res, next) {
+    evaluationService.getById(req.params.id)
+        .then(evaluation => evaluation ? res.json(evaluation) : res.sendStatus(404))
         .catch(err => next(err));
 }
 
@@ -96,4 +109,14 @@ function _delete(req, res, next) {
     evaluationService.delete(req.params.id)
         .then(() => res.json({}))
         .catch(err => next(err));
+}
+
+async function evaluationGrade(req, res, next) {
+    const user = await userService.getById(req.user.sub);
+    try {
+        const mark = await markService.getByUserResult(user)
+        return res.send(mark)
+    } catch (error) {
+        console.log(error)
+    }
 }
