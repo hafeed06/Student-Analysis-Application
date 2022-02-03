@@ -27,12 +27,6 @@ async function getByUser(id) {
 
 async function create(markParam) {
     // validate
-    const mark = await Mark.findOne({ course: markParam.course, user: markParam.user})
-    if (mark) {
-
-        Object.assign(mark, markParam);
-        return await mark.save();
-    }
     try {
         const mark = new Mark(markParam);
         // save contact
