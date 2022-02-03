@@ -27,7 +27,7 @@ async function getByUser(id) {
 
 async function create(markParam) {
     // validate
-    const mark = await Mark.findOne({ course: markParam.course, user: markParam.user })
+    const mark = await Mark.findOne({ course: markParam.course, user: markParam.user})
     if (mark) {
 
         Object.assign(mark, markParam);
@@ -60,7 +60,6 @@ async function _delete(id) {
 }
 
 async function getByUserResult(user){
-    console.log(user)
     return await  Mark.find({user: user}).where('result').gt(15).sort('result').where("asc").limit(5)
 }
 

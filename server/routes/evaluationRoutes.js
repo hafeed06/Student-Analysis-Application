@@ -159,11 +159,37 @@ function _delete(req, res, next) {
         .catch(err => next(err));
 }
 
+const getResult = async (marks) => {
+    
+}
+
 async function evaluationGrade(req, res, next) {
     const user = await userService.getById(req.user.sub);
+    let param = {}
     try {
-        const mark = await markService.getByUserResult(user)
-        return res.send(mark)
+        const marks = await markService.getByUserResult(user)
+        let mark = []
+        param = {
+            "course": "",
+            "dateresult": "",
+            "username": "",
+            "dateEvaluation": "",
+            "result": ""
+        }
+        marks.map(async function (e) {
+            let eva = await evaluationService.getById(e.evaluation)
+            let courseName = await courseService.getById(eva.course)
+            let username = await userService.getById(e.user)
+            param["course"] = courseName.nameCourse
+            param["dateresult"] = e.dateResult
+            param["username"] = username.username
+            param["dateEvaluation"] = eva.dateEvaluation
+            param["result"] = e.result
+            mark.push(param)
+            console.log(param)
+        })
+        res.send(mark)
+
     } catch (error) {
         console.log(error)
     }
