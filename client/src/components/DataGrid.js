@@ -9,7 +9,7 @@ export default function FlexLayoutGrid() {
     maxColumns: 6,
   });
 
-  console.log(data)
+  // console.log(data)
 
   return (
     <div style={{ height: 400, width: '100%', background:'white' }}>
