@@ -160,36 +160,40 @@ function _delete(req, res, next) {
         .catch(err => next(err));
 }
 
-const getResult = async (marks) => {
-    
-}
 
-async function evaluationGrade(req, res, next) {
-    const user = await userService.getById(req.user.sub);
-    let param = {}
-    try {
-        const marks = await markService.getByUserResult(user)
-        let mark = []
-        param = {
+const getResult = async (marks) => {
+    let finalResult = []
+	for(let i = 0; i < marks.length; i++) {
+		let param = {
             "course": "",
             "dateresult": "",
             "username": "",
             "dateEvaluation": "",
             "result": ""
         }
-        marks.map(async function (e) {
-            let eva = await evaluationService.getById(e.evaluation)
-            let courseName = await courseService.getById(eva.course)
-            let username = await userService.getById(e.user)
-            param["course"] = courseName.nameCourse
-            param["dateresult"] = e.dateResult
-            param["username"] = username.username
-            param["dateEvaluation"] = eva.dateEvaluation
-            param["result"] = e.result
-            mark.push(param)
-            console.log(param)
-        })
-        res.send(mark)
+        let eva = await evaluationService.getById(marks[i].evaluation)
+        let courseName = await courseService.getById(eva.course)
+        let username = await userService.getById(marks[i].user)
+        param["course"] = courseName.nameCourse
+        param["dateresult"] = marks[i].dateResult
+        param["username"] = username.username
+        param["dateEvaluation"] = eva.dateEvaluation
+        param["result"] = marks[i].result
+        finalResult.push(param)
+        console.log("Inner iteration")
+	}
+    return finalResult
+}
+
+async function evaluationGrade(req, response, next) {
+    const user = await userService.getById(req.user.sub);
+    let param = {}
+    try {
+        const marks = await markService.getByUserResult(user)
+        let mark = []
+        getResult(marks)
+        .then(res => response.json(res))
+        .catch(error => console.log(error))
 
     } catch (error) {
         console.log(error)
