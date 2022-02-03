@@ -135,6 +135,7 @@ function getAll(req, res, next) {
 }
 
 function getById(req, res, next) {
+    console.log(req.params.id)
     evaluationService.getById(req.params.id)
         .then(evaluation => evaluation ? res.json(evaluation) : res.sendStatus(404))
         .catch(err => next(err));
@@ -159,11 +160,41 @@ function _delete(req, res, next) {
         .catch(err => next(err));
 }
 
-async function evaluationGrade(req, res, next) {
+
+const getResult = async (marks) => {
+    let finalResult = []
+	for(let i = 0; i < marks.length; i++) {
+		let param = {
+            "course": "",
+            "dateresult": "",
+            "username": "",
+            "dateEvaluation": "",
+            "result": ""
+        }
+        let eva = await evaluationService.getById(marks[i].evaluation)
+        let courseName = await courseService.getById(eva.course)
+        let username = await userService.getById(marks[i].user)
+        param["course"] = courseName.nameCourse
+        param["dateresult"] = marks[i].dateResult
+        param["username"] = username.username
+        param["dateEvaluation"] = eva.dateEvaluation
+        param["result"] = marks[i].result
+        finalResult.push(param)
+        console.log("Inner iteration")
+	}
+    return finalResult
+}
+
+async function evaluationGrade(req, response, next) {
     const user = await userService.getById(req.user.sub);
+    let param = {}
     try {
-        const mark = await markService.getByUserResult(user)
-        return res.send(mark)
+        const marks = await markService.getByUserResult(user)
+        let mark = []
+        getResult(marks)
+        .then(res => response.json(res))
+        .catch(error => console.log(error))
+
     } catch (error) {
         console.log(error)
     }
