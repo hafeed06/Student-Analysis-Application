@@ -64,9 +64,9 @@ router.post('/', upload.single("file"), importCsv);
  *             type: object
  *             properties:
  *               user:
- *                 type: objectId
+ *                 type: string
  *               course:
- *                 type: objectId
+ *                 type: string
  *               result:
  *                 type: string
  *               date:
@@ -97,7 +97,6 @@ async function importCsv(req, res) {
 
 async function evaluation(req, res){
     try {
-        console.log(req.body)
         const user = await userService.getByName(req.body.username);
         console.log(user)
         // validate
@@ -121,16 +120,16 @@ async function evaluation(req, res){
                 "evaluation": mongoose.Types.ObjectId(evaluation)
             }
             try {
-                const mark = markService.create(markParm)
+                const mark = await markService.create(markParm)
                 if(!mark) throw res.json({message: "mark error"})
                 console.log(mark)
-                return res.json({mark: mark})
+                return res.send(mark)
             } catch (error) {
                 res.send(error)
                 console.log(error)
             }
         }
     } catch (error) {
-        console.log(" error in the first phase")
+        console.log(error)
     }
 }
