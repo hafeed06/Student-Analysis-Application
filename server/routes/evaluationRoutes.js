@@ -160,7 +160,7 @@ function _delete(req, res, next) {
 }
 
 const getResult = async (marks) => {
-    
+
 }
 
 async function evaluationGrade(req, res, next) {
