@@ -120,7 +120,7 @@ async function evaluation(req, res){
                 "evaluation": mongoose.Types.ObjectId(evaluation)
             }
             try {
-                const mark = await markService.create(markParm)
+                const mark = markService.create(markParm)
                 if(!mark) throw res.json({message: "mark error"})
                 console.log(mark)
                 return res.send(mark)
