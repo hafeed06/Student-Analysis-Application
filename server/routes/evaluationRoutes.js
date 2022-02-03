@@ -163,8 +163,8 @@ function _delete(req, res, next) {
 
 const getResult = async (marks) => {
     let finalResult = []
-	for(let i = 0; i < marks.length; i++) {
-		let param = {
+    for (let i = 0; i < marks.length; i++) {
+        let param = {
             "course": "",
             "dateresult": "",
             "username": "",
@@ -181,7 +181,7 @@ const getResult = async (marks) => {
         param["result"] = marks[i].result
         finalResult.push(param)
         console.log("Inner iteration")
-	}
+    }
     return finalResult
 }
 
@@ -192,8 +192,8 @@ async function evaluationGrade(req, response, next) {
         const marks = await markService.getByUserResult(user)
         let mark = []
         getResult(marks)
-        .then(res => response.json(res))
-        .catch(error => console.log(error))
+            .then(res => response.json(res))
+            .catch(error => console.log(error))
 
     } catch (error) {
         console.log(error)
@@ -212,12 +212,14 @@ async function lateGradeSixmonth(req, res, next) {
     }
 }
 
-async function allMarksCurrentUser(req, res, next) {
+async function allMarksCurrentUser(req, response, next) {
     const user = await userService.getById(req.user.sub);
     try {
-        await markService.getByUser(user)
-            .then(mark => mark ? res.send(mark) : res.sendStatus(400).json({ message: "this record doesn't exist" }))
-            .catch(err => next(err))
+        const marks = await markService.getByUser(user)
+        let mark = []
+        getResult(marks)
+            .then(res => response.json(res))
+            .catch(error => console.log(error))
     } catch (error) {
         console.log(error)
     }
