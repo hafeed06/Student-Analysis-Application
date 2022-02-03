@@ -135,6 +135,7 @@ function getAll(req, res, next) {
 }
 
 function getById(req, res, next) {
+    console.log(req.params.id)
     evaluationService.getById(req.params.id)
         .then(evaluation => evaluation ? res.json(evaluation) : res.sendStatus(404))
         .catch(err => next(err));

@@ -8,6 +8,8 @@ import AnalyticsIcon from '@mui/icons-material/Analytics';
 import blueGradient from '../styles/blueGradient';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import HomePieChart from '../components/charts/HomePieChart';
+import Top5Marks from '../components/stats/Top5Marks';
+import LatestResults from '../components/stats/LatestResults'
 
 const Home = () => {
     const [userInformation, setUserInformation] = useState(null);
@@ -34,7 +36,7 @@ const Home = () => {
                             <AnalyticsIcon /> Latest Grades
                             {/* <strong>{userInformation && userInformation.username}</strong> */}
                         </Typography>
-                        <CustomLocaleTextGrid />
+                        <LatestResults />
                     </Box>
                 </Grid >
                 <Grid item xs={2}>
@@ -43,6 +45,7 @@ const Home = () => {
                            <StarOutlineIcon /> Top Subjects
                            </Typography>
                            <Paper style={{padding:'5px'}}>
+                               <Top5Marks /> 
                                <div className = "inputContainer">
                                <Typography variant="body2">1. Advanced C</Typography>
                                <Typography variant="body2">20</Typography>
