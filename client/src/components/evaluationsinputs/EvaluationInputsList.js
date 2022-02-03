@@ -11,6 +11,7 @@ import {Select, MenuItem, FormControl, InputLabel} from '@mui/material'
 import { bigInput, smallInput, smallerInput } from '../../styles/inlineStyles'
 import capitalize from '../../utils/capitalize'
 import { responsiveProperty } from '@mui/material/styles/cssUtils';
+import { getFrenchDate, getHyphenFrenchDate } from '../../utils/getRawDate';
 
 
 const EvaluationInputsList = ({ id, inputs, setInputs }) => {
@@ -40,6 +41,11 @@ const EvaluationInputsList = ({ id, inputs, setInputs }) => {
     const [usersLoaded, setUsersLoaded] = useState(null)
     // Date Management 
 
+    // Evaluate Custom Management 
+    const [customEvaluateList, setCustomEvaluateList] = useState([])
+
+
+
     const [value, setValue] = useState(new Date(initialDate));
     const handleDateChange = (newValue) => {
         setValue(newValue);
@@ -55,23 +61,12 @@ const EvaluationInputsList = ({ id, inputs, setInputs }) => {
         updatedInputs[id][e.target.name] = e.target.value;
         setInputs(updatedInputs)
 
-        // api.get('/evaluate', {headers: headers})
-        // .then(res => {
-        //     const filteredEvaluationDates = res.data.filter(e => e.course ===)
-        //     console.log(res.data)
-        // })
-        // .catch(e => console.log(e))
-
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        let data = inputDetails
-        data.date = parsedDate
-        console.log(data)
         try {
-            const subResult = await api.post('/upload/evaluation', data, { headers: headers })
+            const subResult = await api.post('/upload/evaluation', inputDetails, { headers: headers })
             console.log(subResult)
         } catch (error) {
             console.log(error.response.data)
@@ -113,6 +108,19 @@ const EvaluationInputsList = ({ id, inputs, setInputs }) => {
         usersAndCoursesFetcher();
     }, [usersLoaded, courseListLoaded]);
 
+    useEffect(() => { 
+        api.get(`/evaluate/dateEvaluation/${inputDetails.course}`, {headers: headers})
+        .then(res => {
+            console.log(" => Fetching NameCourse: " + inputDetails.course)
+            console.log(res.data)
+            setCustomEvaluateList(res.data)
+            console.log("___________ ***** ")
+            console.log(res.data[0].dateEvaluation)
+            setInputDetails({...inputDetails, date : res.data[0].dateEvaluation })
+        })
+        .catch(e => console.log(e))
+    },[inputDetails.course])
+
 
     return (
 
@@ -137,7 +145,7 @@ const EvaluationInputsList = ({ id, inputs, setInputs }) => {
                     labelId="demo-simple-select-label" id="demo-simple-select" value={inputDetails.course} name="course" onChange={handleFieldChange}
                     sx={{width:"200px"}} label ="Course Name"
                 >
-                    {courseList.map(e => <MenuItem key={e.id} value={e.nameCourse}>{e.nameCourse}</MenuItem>)}
+                    {courseList.map(e => <MenuItem key={e.nameCourse} value={e.nameCourse}>{e.nameCourse}</MenuItem>)}
 
                 </Select>
                 </FormControl>
@@ -149,7 +157,7 @@ const EvaluationInputsList = ({ id, inputs, setInputs }) => {
                 {/* <TextField label="Course Name" name="course" onChange={handleFieldChange} /> */}
                 <TextField type="number" label="Result" name="result" onChange={handleFieldChange} required />
                 {/* <TextField label="Result Date" name="date" onChange={handleFieldChange}/ > */}
-                <div style={{maxWidth:'30%'}}>
+                {/* <div style={{maxWidth:'30%'}}>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DesktopDatePicker
                             name="testDate"
@@ -161,7 +169,19 @@ const EvaluationInputsList = ({ id, inputs, setInputs }) => {
                             renderInput={(params) => <TextField style={bigInput} {...params} />}
                         />
                     </LocalizationProvider>
-                </div>
+                </div> */}
+
+                <FormControl>
+                <InputLabel id="demo-simple-select-helper-label">EVALUATION DATE</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label" id="demo-simple-select" 
+                    sx={{width:"200px"}} label ="EVALUATION DATE"
+                    name="date" onChange={handleFieldChange}
+                >
+                    {customEvaluateList.map(e => <MenuItem key={e.dateEvaluation} value={e.dateEvaluation}>{getFrenchDate(e.dateEvaluation)}</MenuItem>)}
+
+                </Select>
+                </FormControl>
 
                 <Button type="submit" variant="contained" startIcon={<IosShareIcon />} sx={{ background: "#0FA097" }}>Send Results</Button>
             </div>
