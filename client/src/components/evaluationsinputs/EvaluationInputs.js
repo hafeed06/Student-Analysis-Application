@@ -9,13 +9,12 @@ const EvaluationInputs = () => {
 
 
     const [inputs, setInputs] = useState([        {
-        "studentId": "",
-        "courseName": "",
-        "courseType": "",
-        "semester": "",
-        "evaluationDate": "",
-        "resultDate": "",
+        "username":"",
+        "course":"",
+        "result":"",
+        "date":""
     }]);
+
 
 
     const handleAddMore = () => {
@@ -40,7 +39,7 @@ const EvaluationInputs = () => {
 
             <div className="inputContainer">
                 <Button variant="contained" startIcon={<AddIcon />} onClick={handleAddMore}>Add More</Button>
-                <Button variant="contained" startIcon={<IosShareIcon />} sx={{ background: "#0FA097" }}>Send Results</Button>
+                {/* <Button variant="contained" startIcon={<IosShareIcon />} sx={{ background: "#0FA097" }}>Send Results</Button> */}
             </div>
 
         </div>

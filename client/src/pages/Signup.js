@@ -52,6 +52,8 @@ const Signup = () => {
           e.preventDefault()
           const userData = 
             {
+              "firstname": data.firstname, 
+              "lastname": data.lastname,
               "username": data.username,
               "email": data.email,
               "password": data.password
@@ -95,9 +97,9 @@ const Signup = () => {
           console.log(data)
         },[data])
         // Redirect after Sign up useEffect 
-        // useEffect(() => {
-        //   (submitted && !sError) && setTimeout(goHome(), 6000)
-        // },[submitted])
+        useEffect(() => {
+          (submitted && !sError) && setTimeout(goHome(), 6000)
+        },[submitted])
 
 
     return (
