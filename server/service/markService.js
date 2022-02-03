@@ -22,7 +22,7 @@ async function getById(id) {
 }
 
 async function getByUser(id) {
-    return await Mark.find({user: id});
+    return await Mark.find({user: id}).sort({'dateResult':'descending'});
 }
 
 async function create(markParam) {
