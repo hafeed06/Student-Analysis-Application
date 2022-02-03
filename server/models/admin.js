@@ -5,7 +5,15 @@ const AdminSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    password:{
+    firstname:{
+        type:String,
+        required:true
+    },
+    lastname:{
+        type:String,
+        required:true
+    },
+    hash:{
         type:String,
         required:true
     },

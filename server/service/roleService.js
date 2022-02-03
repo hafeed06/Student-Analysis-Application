@@ -5,6 +5,7 @@ const Role = db.Role;
 module.exports = {
     getAll,
     getById,
+    getByRole,
     create,
     update,
     delete: _delete
@@ -18,6 +19,10 @@ async function getById(id) {
     return await Role.findOne(id);
 }
 
+async function getByRole(role) {
+    return await Role.find({nameRole: role.nameRole});
+}
+
 async function create(RoleParm) {
     // validate
     try {
@@ -28,7 +33,7 @@ async function create(RoleParm) {
         }else{
             const role = new Role(RoleParm);
             // save Role
-            await role.save();
+            return await role.save();
         }
     } catch (error) {
         throw 'Role "' + RoleParm.nameRole + '" has an error';

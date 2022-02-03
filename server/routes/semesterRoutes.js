@@ -2,7 +2,7 @@ const express = require('express');
 const contact = require('../models/contact');
 const semesterService = require('../service/semesterService');
 const router = express.Router();
-const userService = require('../service/contactService');
+const userService = require('../service/userService');
 
 // routes
 /**
