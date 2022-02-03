@@ -105,8 +105,20 @@ router.get('/latestMonths/:number', lateGradeSixmonth);
  *       200:
  *         description: {msg: "Evaluation grades list json !"}
  */
- router.get('/dateEvaluation/:course', getByCourse);
-
+router.get('/dateEvaluation/:course', getByCourse);
+/**
+ * @swagger
+ * /allMarksUser/:
+ *   post:
+ *     summary: Returns the evaluation dates and  course of student
+ *     description: evaluate/allMarksUser/ provide parameters
+ *     consumes:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: {msg: "Evaluation grades list json !"}
+ */
+router.post('/allMarksUser', allMarksCurrentUser);
 module.exports = router;
 
 
@@ -162,8 +174,19 @@ async function lateGradeSixmonth(req, res, next) {
     try {
         const date = new Date()
         await markService.getByDate(user, date, req.params.number)
-        .then(mark => mark? res.send(mark) : res.sendStatus(400).json({message: "this record doesn't exist"}))
-        .catch(err => next(err))
+            .then(mark => mark ? res.send(mark) : res.sendStatus(400).json({ message: "this record doesn't exist" }))
+            .catch(err => next(err))
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function allMarksCurrentUser(req, res, next) {
+    const user = await userService.getById(req.user.sub);
+    try {
+        await markService.getByUser(user)
+            .then(mark => mark ? res.send(mark) : res.sendStatus(400).json({ message: "this record doesn't exist" }))
+            .catch(err => next(err))
     } catch (error) {
         console.log(error)
     }
