@@ -17,7 +17,7 @@ async function getAll() {
 }
 
 async function getById(id) {
-    return await Evaluation.findOne(id);
+    return await Evaluation.findById(id);
 }
 
 async function getByCourseDate(course, date) {

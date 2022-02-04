@@ -3,11 +3,10 @@ import Chart from 'chart.js/auto';
 import { useEffect } from 'react';
 import '../../index.css'
 
-const Chart1 = () => {
+const LineChart = () => {
 
-    const grades = [12, 19, 20, 5, 13, 4]; 
-    const subjects = ['Advanced Algorithms', 'Relational Databases', 'Culture Shock', 'Green', 'Purple', 'Orange']
-
+    const grades = [12, 19, 5, 15, 13, 7]; 
+    const subjects = ['September', 'October', 'November', 'December', 'January', 'February']
     useEffect(() => {
         const ctx = document.getElementById('myChart');
         const myChart = new Chart(ctx, {
@@ -15,7 +14,7 @@ const Chart1 = () => {
           data: {
               labels: subjects,
               datasets: [{
-                  label: '# of grades',
+                  label: 'Average Grade per Month',
                   data: grades,
                   backgroundColor: [
                       'rgba(255, 99, 132, 0.2)',
@@ -64,4 +63,4 @@ const Chart1 = () => {
     )
 }
 
-export default Chart1
+export default LineChart

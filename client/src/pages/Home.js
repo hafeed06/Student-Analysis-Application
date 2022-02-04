@@ -30,7 +30,7 @@ const Home = () => {
                 <Grid item xs={3} >
                     {userInformation && <HomeUserCard image="./graduating-student.png" data={userInformation} />}
                 </Grid>
-                <Grid item xs={6} >
+                <Grid item xs={5} >
                     <Box style={{ border: "solid 1px #D5D8DB", borderRadius: '4px', padding: "10px" }} sx={{ background: blueGradient }}>
                         <Typography variant="h6" className="centered" color="white">
                             <AnalyticsIcon /> Latest Grades
@@ -39,34 +39,13 @@ const Home = () => {
                         <LatestResults />
                     </Box>
                 </Grid >
-                <Grid item xs={2}>
+                <Grid item xs={3}>
                     <Box style={{ border: "solid 1px #D5D8DB", borderRadius: '4px', padding: "10px" }} sx={{ background: blueGradient }}>
                         <Typography variant="h6" className="centered" color="white">
-                           <StarOutlineIcon /> Top Subjects
+                           <StarOutlineIcon /> Top 5 Subjects
                            </Typography>
                            <Paper style={{padding:'5px'}}>
                                <Top5Marks /> 
-                               <div className = "inputContainer">
-                               <Typography variant="body2">1. Advanced C</Typography>
-                               <Typography variant="body2">20</Typography>
-                               </div>
-                               <div className = "inputContainer">
-                               <Typography variant="body2">2. UML & Java</Typography>
-                               <Typography variant="body2">18</Typography>
-                               </div>
-                               <div className = "inputContainer">
-                               <Typography variant="body2">3. Communication for Leaders</Typography>
-                               <Typography variant="body2">15</Typography>
-                               </div>
-                               <div className = "inputContainer">
-                               <Typography variant="body2">4. Relational Databases</Typography>
-                               <Typography variant="body2">13</Typography>
-                               </div>
-                               <div className = "inputContainer">
-                               <Typography variant="body2">5. Algebra Advanced</Typography>
-                               <Typography variant="body2">10</Typography>
-                               </div>
-
                            </Paper>
                            <Paper style={{padding:'5px', marginTop:'10px'}}>
                                <HomePieChart /> 
@@ -80,7 +59,7 @@ const Home = () => {
 
             <Grid container spacing={2} className="gridHolder">
                 <Grid item xs={11} >
-                    <CustomLocaleTextGrid />
+                    {/* <CustomLocaleTextGrid /> */}
                 </Grid>
             </Grid>
         </div>

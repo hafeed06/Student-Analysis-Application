@@ -171,16 +171,16 @@ const getResult = async (marks) => {
             "dateEvaluation": "",
             "result": ""
         }
-        let eva = await evaluationService.getById(marks[i].evaluation)
-        let courseName = await courseService.getById(eva.course)
-        let username = await userService.getById(marks[i].user)
+        const eva = await evaluationService.getById(marks[i].evaluation)
+        const courseName = await courseService.getByIdNew(eva.course)
+        const username = await userService.getById(marks[i].user)
         param["course"] = courseName.nameCourse
         param["dateresult"] = marks[i].dateResult
         param["username"] = username.username
         param["dateEvaluation"] = eva.dateEvaluation
         param["result"] = marks[i].result
         finalResult.push(param)
-        console.log("Inner iteration")
+        console.log(param.course)
     }
     return finalResult
 }

@@ -8,6 +8,7 @@ module.exports = {
     getByName,
     create,
     update,
+    getByIdNew,
     delete: _delete
 };
 
@@ -17,6 +18,10 @@ async function getAll() {
 
 async function getById(id) {
     return await Course.findOne(id);
+}
+
+async function getByIdNew(id) {
+    return await Course.findById(id);
 }
 
 async function getByName(nameCourse) {
