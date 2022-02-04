@@ -30,7 +30,7 @@ const Home = () => {
                 <Grid item xs={3} >
                     {userInformation && <HomeUserCard image="./graduating-student.png" data={userInformation} />}
                 </Grid>
-                <Grid item xs={6} >
+                <Grid item xs={5} >
                     <Box style={{ border: "solid 1px #D5D8DB", borderRadius: '4px', padding: "10px" }} sx={{ background: blueGradient }}>
                         <Typography variant="h6" className="centered" color="white">
                             <AnalyticsIcon /> Latest Grades
@@ -39,10 +39,10 @@ const Home = () => {
                         <LatestResults />
                     </Box>
                 </Grid >
-                <Grid item xs={2}>
+                <Grid item xs={3}>
                     <Box style={{ border: "solid 1px #D5D8DB", borderRadius: '4px', padding: "10px" }} sx={{ background: blueGradient }}>
                         <Typography variant="h6" className="centered" color="white">
-                           <StarOutlineIcon /> Top Subjects
+                           <StarOutlineIcon /> Top 5 Subjects
                            </Typography>
                            <Paper style={{padding:'5px'}}>
                                <Top5Marks /> 
@@ -59,7 +59,7 @@ const Home = () => {
 
             <Grid container spacing={2} className="gridHolder">
                 <Grid item xs={11} >
-                    <CustomLocaleTextGrid />
+                    {/* <CustomLocaleTextGrid /> */}
                 </Grid>
             </Grid>
         </div>

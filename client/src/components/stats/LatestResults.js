@@ -53,11 +53,19 @@ export default function LatestResults() {
     api.post('evaluate/allMarksUser/', {}, {headers : headers})
     .then(res => {
         const tempRows = []
-        res.data.map((e,k) => {
-            if(k < 5) tempRows.push(
+
+        const x = res.data.sort(function(a, b) {
+            var x = new Date(a.dateEvaluation); var y = new Date(b.dateEvaluation)
+            return ((x < y) ? 1 : ((x > y) ? -1 : 0));
+        });
+
+        console.log(x)
+
+        x.map((e,k) => {
+            if(k < 10) tempRows.push(
                 createData(
-                    getFrenchDate(e.dateResult), 
-                    e.evaluation, 
+                    getFrenchDate(e.dateEvaluation), 
+                    e.course, 
                     e.result
                 )
             )
@@ -117,7 +125,7 @@ export default function LatestResults() {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[5, 10, 20]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}

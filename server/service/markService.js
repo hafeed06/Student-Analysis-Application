@@ -35,8 +35,6 @@ async function create(markParam) {
             console.log(error)
         }
 }
-
-
 async function update(id, markParam) {
     const marks = await Mark.findById(id);
 
@@ -58,7 +56,8 @@ async function getByUserResult(user){
 }
 
 async function getByDate(user, date, number){
-    date.setMonth(date.getMonth() - number)
+    console.log(date)
+    date.setMonth(date.getDate() - number)
     console.log(date)
     return await  Mark.find({user: user}).where('dateResult').lt(date).sort('result').where("asc").limit(5)
 }

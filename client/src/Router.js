@@ -3,8 +3,6 @@ import Navbar from './components/Navbar'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Home from './pages/Home'
-import Chart1 from './components/charts/Chart1'
-import LoggedInOnly from './utils/LoggedInOnly'
 import AddResults from './pages/AddResults'
 import AuthenticationTester from './tests/AuthenticationTester'
 import { useState, useEffect } from 'react'
@@ -15,7 +13,7 @@ import AddCourse from './pages/AddCourse'
 import AddCourseType from './pages/AddCourseType'
 import AddSemester from './pages/AddSemester'
 import AddEvaluation from './pages/AddEvaluation'
-
+import Performance from './pages/Performance'
 
 
 
@@ -35,7 +33,7 @@ const MainRouter = () => {
 
 
     const userPages = ['Performance Metrics', 'Add Results', 'Add Course', 'Add Course Type', 'Add Semester', 'Add Evaluation']
-    const userLinks = ['/chart', '/addresults', '/addCourse', '/addCourseType', '/addSemester', '/addEvaluation']
+    const userLinks = ['/performance', '/addresults', '/addCourse', '/addCourseType', '/addSemester', '/addEvaluation']
     const userSettings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
     useEffect(() => {
@@ -82,7 +80,7 @@ const MainRouter = () => {
                 {/* Authenticated Users will be redirected to Home if they try to go to Login route  */}
                 <Route exact path="/login" element={ !isAuth ? <Login /> : <Navigate to="/" /> } />
                 {/* Chart is a private authenticated only route, if user is not authenticated they will be redirect to Login */}
-                <Route exact path="/chart" element={isAuth? <Chart1 /> : <Navigate to="/login" />}/>
+                <Route exact path="/performance" element={isAuth? <Performance /> : <Navigate to="/login" />}/>
                 <Route exact path="/addResults" element={isAuth? <AddResults /> : <Navigate to="/login" />}/>
                 <Route exact path="/addCourse" element={isAuth? <AddCourse /> : <Navigate to="/login" />}/>
                 <Route exact path="/addCourseType" element={isAuth? <AddCourseType /> : <Navigate to="/login" />}/>
